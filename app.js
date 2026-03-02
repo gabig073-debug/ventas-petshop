@@ -92,7 +92,6 @@ const producto = productoSeleccionado;
     localStorage.setItem("productos", JSON.stringify(productos));
 
     mostrarProductos();
-    cargarProductosEnSelect();
     mostrarVentas();
     
     productoSeleccionado = null;
@@ -179,6 +178,7 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
 
 });
 }
+
 
 
 
