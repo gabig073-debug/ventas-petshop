@@ -178,6 +178,7 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
     });
 
 });
+}
 
 
 
