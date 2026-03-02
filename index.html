@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ventas PetShop</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🐶 Sistema de Ventas</h1>
+
+<h2>Agregar Producto</h2>
+
+<input id="nombre" placeholder="Nombre producto">
+<input id="marca" placeholder="Marca">
+<input id="precioBolsa" type="number" placeholder="Precio bolsa">
+<input id="precioKilo" type="number" placeholder="Precio por kilo">
+<input id="pesoBolsa" type="number" placeholder="Peso bolsa (kg)">
+<input id="stock" type="number" placeholder="Stock inicial (kg)">
+
+<button onclick="guardarProducto()">Guardar Producto</button>
+
+<h2>Productos</h2>
+<div id="listaProductos"></div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
