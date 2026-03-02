@@ -126,8 +126,8 @@ function eliminarVenta(idVenta){
     // Buscar el producto original
     const producto = productos.find(p => p.id === venta.productoId);
 
-    if(producto){
-        producto.stock += venta.kilosVendidos;
+    if(producto && venta.kilosVendidos){
+    producto.stock += venta.kilosVendidos;
     }
 
     // Eliminar la venta del array
@@ -178,6 +178,7 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
 
 });
 }
+
 
 
 
