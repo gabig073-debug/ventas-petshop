@@ -114,7 +114,8 @@ function mostrarVentas(){
         </div>
     `;
 });
-
+}
+    
 function eliminarVenta(idVenta){
 
     const venta = ventas.find(v => v.id === idVenta);
@@ -177,5 +178,6 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
     });
 
 });
+
 
 
