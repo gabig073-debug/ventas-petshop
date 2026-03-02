@@ -1,4 +1,5 @@
 let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+let productoSeleccionado = null;
 
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
@@ -56,11 +57,14 @@ function cargarProductosEnSelect(){
 
 function registrarVenta(){
 
-    const idProducto = Number(document.getElementById("productoVenta").value);
+    if(!productoSeleccionado){
+    alert("Seleccione un producto");
+    return;
+}
+
+const producto = productoSeleccionado;
     const tipo = document.getElementById("tipoVenta").value;
     const cantidad = Number(document.getElementById("cantidadVenta").value);
-
-    const producto = productos.find(p => p.id === idProducto);
 
     if(!producto){
         alert("Producto no encontrado");
@@ -101,7 +105,9 @@ function registrarVenta(){
     mostrarProductos();
     cargarProductosEnSelect();
     mostrarVentas();
-
+    
+    productoSeleccionado = null;
+    document.getElementById("buscarProducto").value = "";
     document.getElementById("cantidadVenta").value = "";
 }
 
@@ -126,3 +132,33 @@ function limpiarInputs(){
 
 
 mostrarProductos();
+
+document.getElementById("buscarProducto").addEventListener("input", function(){
+
+    const texto = this.value.toLowerCase();
+    const sugerencias = document.getElementById("sugerencias");
+
+    sugerencias.innerHTML = "";
+
+    if(texto === ""){
+        return;
+    }
+
+    const filtrados = productos.filter(p => 
+        p.nombre.toLowerCase().includes(texto)
+    );
+
+    filtrados.forEach(p => {
+        const div = document.createElement("div");
+        div.textContent = `${p.nombre} (${p.stock} kg)`;
+
+        div.onclick = function(){
+            document.getElementById("buscarProducto").value = p.nombre;
+            productoSeleccionado = p;
+            sugerencias.innerHTML = "";
+        };
+
+        sugerencias.appendChild(div);
+    });
+
+});
