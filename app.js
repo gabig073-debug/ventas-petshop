@@ -104,17 +104,17 @@ function mostrarVentas(){
     lista.innerHTML = "";
 
     ventas.forEach(v => {
-    lista.innerHTML += `
-        <div class="producto">
-            ${v.fecha}<br>
-            ${v.producto} - ${v.tipo} - ${v.cantidad}<br>
-            Total: $${v.total}<br>
-            <button onclick="eliminarVenta(${v.id})">Eliminar</button>
-        </div>
-    `;
-});
+        lista.innerHTML += `
+            <div class="producto">
+                ${v.fecha}<br>
+                ${v.producto} - ${v.tipo} - ${v.cantidad}<br>
+                Total: $${v.total}<br>
+                <button onclick="eliminarVenta(${v.id})">Eliminar</button>
+            </div>
+        `;
+    });
 }
-    
+
 function eliminarVenta(idVenta){
 
     const venta = ventas.find(v => v.id === idVenta);
@@ -123,14 +123,12 @@ function eliminarVenta(idVenta){
         return;
     }
 
-    // Buscar el producto original
     const producto = productos.find(p => p.id === venta.productoId);
 
     if(producto && venta.kilosVendidos){
-    producto.stock += venta.kilosVendidos;
+        producto.stock += venta.kilosVendidos;
     }
 
-    // Eliminar la venta del array
     ventas = ventas.filter(v => v.id !== idVenta);
 
     localStorage.setItem("ventas", JSON.stringify(ventas));
@@ -178,6 +176,7 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
 
 });
 }
+
 
 
 
