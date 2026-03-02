@@ -1,21 +1,45 @@
 let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
 let productoSeleccionado = null;
+let productoEditandoId = null;
 
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 
 function guardarProducto(){
 
-    const producto = {
-        id: Date.now(),
-        nombre: document.getElementById("nombre").value,
-        marca: document.getElementById("marca").value,
-        precioBolsa: Number(document.getElementById("precioBolsa").value),
-        precioKilo: Number(document.getElementById("precioKilo").value),
-        pesoBolsa: Number(document.getElementById("pesoBolsa").value),
-        stock: Number(document.getElementById("stock").value)
-    };
+    const nombre = document.getElementById("nombre").value;
+    const marca = document.getElementById("marca").value;
+    const precioBolsa = Number(document.getElementById("precioBolsa").value);
+    const precioKilo = Number(document.getElementById("precioKilo").value);
+    const pesoBolsa = Number(document.getElementById("pesoBolsa").value);
+    const stock = Number(document.getElementById("stock").value);
 
-    productos.push(producto);
+    if(productoEditandoId){
+
+        const producto = productos.find(p => p.id === productoEditandoId);
+
+        producto.nombre = nombre;
+        producto.marca = marca;
+        producto.precioBolsa = precioBolsa;
+        producto.precioKilo = precioKilo;
+        producto.pesoBolsa = pesoBolsa;
+        producto.stock = stock;
+
+        productoEditandoId = null;
+
+    } else {
+
+        const nuevoProducto = {
+            id: Date.now(),
+            nombre,
+            marca,
+            precioBolsa,
+            precioKilo,
+            pesoBolsa,
+            stock
+        };
+
+        productos.push(nuevoProducto);
+    }
 
     localStorage.setItem("productos", JSON.stringify(productos));
 
@@ -29,17 +53,34 @@ function mostrarProductos(){
     lista.innerHTML = "";
 
     productos.forEach(p => {
-        lista.innerHTML += `
-            <div class="producto">
-                <b>${p.nombre}</b> - ${p.marca}<br>
-                Stock: ${p.stock} kg<br>
-                Bolsa: $${p.precioBolsa} | Kg: $${p.precioKilo}
-            </div>
-        `;
-    });
+    lista.innerHTML += `
+        <div class="producto">
+            <b>${p.nombre}</b> - ${p.marca}<br>
+            Stock: ${p.stock} kg<br>
+            Bolsa: $${p.precioBolsa} | Kg: $${p.precioKilo}<br>
+            <button onclick="editarProducto(${p.id})">Editar</button>
+        </div>
+    `;
+});
 }
 
 mostrarVentas();
+
+function editarProducto(id){
+
+    const producto = productos.find(p => p.id === id);
+
+    if(!producto) return;
+
+    document.getElementById("nombre").value = producto.nombre;
+    document.getElementById("marca").value = producto.marca;
+    document.getElementById("precioBolsa").value = producto.precioBolsa;
+    document.getElementById("precioKilo").value = producto.precioKilo;
+    document.getElementById("pesoBolsa").value = producto.pesoBolsa;
+    document.getElementById("stock").value = producto.stock;
+
+    productoEditandoId = id;
+}
 
 function registrarVenta(){
 
@@ -175,3 +216,4 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
     });
 
 });
+
