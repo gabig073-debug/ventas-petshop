@@ -76,12 +76,15 @@ const producto = productoSeleccionado;
     producto.stock -= kilosVendidos;
 
     const venta = {
-        fecha: new Date().toLocaleString(),
-        producto: producto.nombre,
-        tipo: tipo,
-        cantidad: cantidad,
-        total: total
-    };
+    id: Date.now(),
+    fecha: new Date().toLocaleString(),
+    productoId: producto.id,
+    producto: producto.nombre,
+    tipo: tipo,
+    cantidad: cantidad,
+    kilosVendidos: kilosVendidos,
+    total: total
+};
 
     ventas.push(venta);
 
@@ -102,16 +105,41 @@ function mostrarVentas(){
     lista.innerHTML = "";
 
     ventas.forEach(v => {
-        lista.innerHTML += `
-            <div class="producto">
-                ${v.fecha}<br>
-                ${v.producto} - ${v.tipo} - ${v.cantidad}<br>
-                Total: $${v.total}
-            </div>
-        `;
-    });
-}
+    lista.innerHTML += `
+        <div class="producto">
+            ${v.fecha}<br>
+            ${v.producto} - ${v.tipo} - ${v.cantidad}<br>
+            Total: $${v.total}<br>
+            <button onclick="eliminarVenta(${v.id})">Eliminar</button>
+        </div>
+    `;
+});
 
+function eliminarVenta(idVenta){
+
+    const venta = ventas.find(v => v.id === idVenta);
+
+    if(!venta){
+        return;
+    }
+
+    // Buscar el producto original
+    const producto = productos.find(p => p.id === venta.productoId);
+
+    if(producto){
+        producto.stock += venta.kilosVendidos;
+    }
+
+    // Eliminar la venta del array
+    ventas = ventas.filter(v => v.id !== idVenta);
+
+    localStorage.setItem("ventas", JSON.stringify(ventas));
+    localStorage.setItem("productos", JSON.stringify(productos));
+
+    mostrarProductos();
+    mostrarVentas();
+}
+    
 function limpiarInputs(){
     document.querySelectorAll("input").forEach(i => i.value="");
 }
@@ -149,4 +177,5 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
     });
 
 });
+
 
