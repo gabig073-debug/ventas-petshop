@@ -224,10 +224,10 @@ function exportarVentas(){
         return;
     }
 
-    let contenido = "Fecha,Producto,Tipo,Cantidad,Total\n";
+    let contenido = "Fecha;Producto;Tipo;Cantidad;Total\n";
 
     ventas.forEach(v => {
-        contenido += `${v.fecha},${v.nombre},${v.tipo},${v.cantidad},${v.total}\n`;
+        contenido += `${v.fecha};${v.nombre};${v.tipo};${v.cantidad};${v.total}\n`;
     });
 
     const blob = new Blob([contenido], { type: "text/csv;charset=utf-8;" });
@@ -238,3 +238,4 @@ function exportarVentas(){
 
     link.click();
 }
+
