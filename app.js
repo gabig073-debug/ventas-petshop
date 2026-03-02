@@ -39,21 +39,7 @@ function mostrarProductos(){
     });
 }
 
-cargarProductosEnSelect();
 mostrarVentas();
-
-function cargarProductosEnSelect(){
-    const select = document.getElementById("productoVenta");
-    select.innerHTML = "";
-
-    productos.forEach(p => {
-        select.innerHTML += `
-            <option value="${p.id}">
-                ${p.nombre} (${p.stock} kg)
-            </option>
-        `;
-    });
-}
 
 function registrarVenta(){
 
@@ -145,8 +131,9 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
     }
 
     const filtrados = productos.filter(p => 
-        p.nombre.toLowerCase().includes(texto)
-    );
+    (p.nombre && p.nombre.toLowerCase().includes(texto)) ||
+    (p.marca && p.marca.toLowerCase().includes(texto))
+);
 
     filtrados.forEach(p => {
         const div = document.createElement("div");
@@ -162,3 +149,4 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
     });
 
 });
+
