@@ -26,8 +26,24 @@
 
 <h2>Productos</h2>
 <div id="listaProductos"></div>
+<h2>Nueva Venta</h2>
 
+<select id="productoVenta"></select>
+
+<select id="tipoVenta">
+    <option value="kilo">Por Kilo</option>
+    <option value="bolsa">Por Bolsa</option>
+</select>
+
+<input id="cantidadVenta" type="number" placeholder="Cantidad">
+
+<button onclick="registrarVenta()">Registrar Venta</button>
+
+<h2>Ventas Realizadas</h2>
+<div id="listaVentas"></div>
+  
 <script src="app.js"></script>
 
 </body>
+
 </html>
