@@ -18,14 +18,22 @@
 <div class="container">
     
 <div class="menu">
-    <button onclick="mostrarPantalla('productos')">📦 Productos</button>
-    <button onclick="mostrarPantalla('ventas')">💰 Ventas</button>
-    <button onclick="mostrarPantalla('reportes')">📊 Reportes</button>
+    <button onclick="mostrarPantalla('productos')">
+    <i class="fa-solid fa-box"></i> Productos
+    </button>
+
+    <button onclick="mostrarPantalla('ventas')">
+    <i class="fa-solid fa-cash-register"></i> Ventas
+    </button>
+
+    <button onclick="mostrarPantalla('reportes')">
+    <i class="fa-solid fa-chart-line"></i> Reportes
+    </button>
 </div>
     
 <div id="pantallaProductos">
 
-<h2>Agregar Producto</h2>
+<h2><i class="fa-solid fa-plus-circle"></i> Agregar Producto</h2>
 
 <input id="nombre" placeholder="Nombre producto">
 <input id="marca" placeholder="Marca">
@@ -43,7 +51,7 @@
     
 <div id="pantallaVentas">
 
-<h2>Nueva Venta</h2>
+<h2><i class="fa-solid fa-cart-shopping"></i> Nueva Venta</h2>
 
 <input id="buscarProducto" placeholder="Escribir producto...">
 <div id="sugerencias" class="sugerencias"></div>
@@ -69,11 +77,12 @@
 </html>
 <div id="pantallaReportes">
 
-<h2>Reportes</h2>
+<h2><i class="fa-solid fa-file-excel"></i> Reportes</h2>
 
 <button onclick="exportarVentas()">Exportar Ventas a Excel</button>
 
 </div>
 
 </div>
+
 
