@@ -6,27 +6,39 @@ body{
     color:#333;
 }
 
-input{
+input, select{
     display:block;
-    margin:5px 0;
-    padding:8px;
-    width:250px;
+    margin:8px 0;
+    padding:10px;
+    width:100%;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:14px;
 }
 
 button{
-    padding:10px;
-    background:green;
+    padding:12px;
+    background:#27ae60;
     color:white;
     border:none;
+    border-radius:8px;
     margin-top:10px;
+    width:100%;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#219150;
 }
 
 .producto{
-    background:white;
-    padding:10px;
-    margin:10px 0;
-    border-radius:8px;
-
+    background:#f9f9f9;
+    padding:15px;
+    margin:12px 0;
+    border-radius:12px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.05);
 }
 
 .sugerencias{
@@ -48,13 +60,24 @@ button{
 
 .menu{
     display:flex;
-    gap:10px;
+    gap:5px;
     margin-bottom:20px;
 }
 
 .menu button{
     flex:1;
-    background:#2c3e50;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ecf0f1;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.menu button:hover{
+    background:#3498db;
+    color:white;
 }
 
 .container{
@@ -64,4 +87,15 @@ button{
     padding:20px;
     border-radius:15px;
     box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:white;
+    margin-bottom:20px;
+}
+
+h2{
+    margin-top:20px;
+    color:#2c3e50;
 }
