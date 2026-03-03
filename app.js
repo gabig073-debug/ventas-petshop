@@ -79,7 +79,8 @@ function mostrarProductos(){
             <div class="producto">
                 <b>${p.nombre}</b> - ${p.marca}<br>
                 Stock: ${p.stock} kg<br>
-                Bolsa: $${p.precioBolsa} | Kg: $${p.precioKilo}
+                Bolsa: $${p.precioBolsa} | Kg: $${p.precioKilo}<br>
+                <button onclick="editarProducto(${p.id})">Editar</button>
             </div>
         `;
     });
@@ -280,5 +281,6 @@ function mostrarPantalla(pantalla){
 window.onload = function(){
     mostrarPantalla("productos");
 };
+
 
 
