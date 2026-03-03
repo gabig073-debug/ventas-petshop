@@ -43,3 +43,14 @@ button{
 .sugerencias div:hover{
     background:#f0f0f0;
 }
+
+.menu{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.menu button{
+    flex:1;
+    background:#2c3e50;
+}
