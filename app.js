@@ -47,21 +47,24 @@ function guardarProducto(){
     mostrarProductos();
 }
 
-function mostrarProductos(){
+function mostrarPantalla(pantalla){
 
-    const lista = document.getElementById("listaProductos");
-    lista.innerHTML = "";
+    const prod = document.getElementById("pantallaProductos");
+    const vent = document.getElementById("pantallaVentas");
+    const rep = document.getElementById("pantallaReportes");
 
-    productos.forEach(p => {
-    lista.innerHTML += `
-        <div class="producto">
-            <b>${p.nombre}</b> - ${p.marca}<br>
-            Stock: ${p.stock} kg<br>
-            Bolsa: $${p.precioBolsa} | Kg: $${p.precioKilo}<br>
-            <button onclick="editarProducto(${p.id})">Editar</button>
-        </div>
-    `;
-});
+    if(!prod || !vent || !rep){
+        console.log("Alguna pantalla no existe en el HTML");
+        return;
+    }
+
+    prod.style.display = "none";
+    vent.style.display = "none";
+    rep.style.display = "none";
+
+    if(pantalla === "productos") prod.style.display = "block";
+    if(pantalla === "ventas") vent.style.display = "block";
+    if(pantalla === "reportes") rep.style.display = "block";
 }
 
 mostrarVentas();
@@ -258,4 +261,7 @@ function mostrarPantalla(pantalla){
     }
 }
 
-mostrarPantalla("productos");
+window.onload = function(){
+    mostrarPantalla("productos");
+};
+
