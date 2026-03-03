@@ -1,7 +1,9 @@
 body{
-    font-family: Arial;
+    font-family: 'Segoe UI', Arial, sans-serif;
     padding:20px;
-    background:#f4f4f4;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    margin:0;
+    color:#333;
 }
 
 input{
@@ -53,4 +55,13 @@ button{
 .menu button{
     flex:1;
     background:#2c3e50;
+}
+
+.container{
+    background:white;
+    max-width:500px;
+    margin:auto;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
