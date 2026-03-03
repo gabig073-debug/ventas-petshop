@@ -69,6 +69,22 @@ function mostrarPantalla(pantalla){
 
 mostrarVentas();
 
+function mostrarProductos(){
+
+    const lista = document.getElementById("listaProductos");
+    lista.innerHTML = "";
+
+    productos.forEach(p => {
+        lista.innerHTML += `
+            <div class="producto">
+                <b>${p.nombre}</b> - ${p.marca}<br>
+                Stock: ${p.stock} kg<br>
+                Bolsa: $${p.precioBolsa} | Kg: $${p.precioKilo}
+            </div>
+        `;
+    });
+}
+
 function editarProducto(id){
 
     const producto = productos.find(p => p.id === id);
@@ -264,4 +280,5 @@ function mostrarPantalla(pantalla){
 window.onload = function(){
     mostrarPantalla("productos");
 };
+
 
