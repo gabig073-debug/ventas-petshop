@@ -239,3 +239,23 @@ function exportarVentas(){
     link.click();
 }
 
+function mostrarPantalla(pantalla){
+
+    document.getElementById("pantallaProductos").style.display = "none";
+    document.getElementById("pantallaVentas").style.display = "none";
+    document.getElementById("pantallaReportes").style.display = "none";
+
+    if(pantalla === "productos"){
+        document.getElementById("pantallaProductos").style.display = "block";
+    }
+
+    if(pantalla === "ventas"){
+        document.getElementById("pantallaVentas").style.display = "block";
+    }
+
+    if(pantalla === "reportes"){
+        document.getElementById("pantallaReportes").style.display = "block";
+    }
+}
+
+mostrarPantalla("productos");
