@@ -89,9 +89,8 @@ function editarProducto(id){
 
     document.getElementById("nombre").value = producto.nombre;
     document.getElementById("marca").value = producto.marca;
-    document.getElementById("precioBolsa").value = producto.precioBolsa;
-    document.getElementById("precioKilo").value = producto.precioKilo;
-    document.getElementById("pesoBolsa").value = producto.pesoBolsa;
+    document.getElementById("precio").value = producto.precio;
+    document.getElementById("unidad").value = producto.unidad;
     document.getElementById("stock").value = producto.stock;
 
     productoEditandoId = id;
@@ -369,6 +368,7 @@ function cerrarSesion(){
 }
 
 verificarSesion();
+
 
 
 
