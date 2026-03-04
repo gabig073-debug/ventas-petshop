@@ -261,8 +261,6 @@ window.onload = function(){
     mostrarPantalla("productos");
 };
 
-localStorage.clear();
-
 let configuracion = JSON.parse(localStorage.getItem("configuracion")) || {};
 
 function guardarConfiguracion(){
@@ -390,4 +388,5 @@ function cerrarSesion(){
 }
 
 verificarSesion();
+
 
