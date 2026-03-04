@@ -62,6 +62,10 @@ function mostrarPantalla(pantalla){
     if(pantalla === "productos") prod.style.display = "block";
     if(pantalla === "ventas") vent.style.display = "block";
     if(pantalla === "reportes") rep.style.display = "block";
+
+    if(nombre === "dashboard"){
+    actualizarDashboard();
+    }
 }
 
 mostrarVentas();
@@ -342,3 +346,4 @@ function actualizarDashboard(){
     document.getElementById("cantidadVentas").innerText = contadorVentas;
     document.getElementById("productoTop").innerText = productoTop;
 }
+
