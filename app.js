@@ -46,7 +46,6 @@ function guardarProducto(){
 
 function mostrarPantalla(nombre){
 
-    // Oculta solo pantallas dentro del sistema
     document.querySelectorAll("#sistema .pantalla").forEach(p => {
         p.style.display = "none";
     });
@@ -368,3 +367,4 @@ function cerrarSesion(){
 }
 
 verificarSesion();
+
