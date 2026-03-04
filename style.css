@@ -1,179 +1,203 @@
-/* ===== RESET ===== */
-body{
+/* ======================
+   RESET Y TIPOGRAFÍA
+   ====================== */
+*{
+    box-sizing: border-box;
     margin:0;
-    font-family: 'Segoe UI', sans-serif;
-    background:#f1f5f9;
+    padding:0;
 }
 
-/* ===== LAYOUT ===== */
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background:#f4f6f9;
+    color:#111827;
+}
+
+/* ======================
+   TITULOS
+   ====================== */
+h1{
+    font-weight:700;
+    font-size:28px;
+    color:#1f2937;
+    margin-bottom:20px;
+}
+
+h2{
+    font-weight:600;
+    font-size:22px;
+    color:#1f2937;
+    margin-bottom:15px;
+}
+
+h3{
+    font-weight:500;
+    font-size:18px;
+    color:#374151;
+}
+
+/* ======================
+   SISTEMA - CONTENEDOR
+   ====================== */
 #sistema{
     display:flex;
     height:100vh;
 }
 
-/* ===== SIDEBAR ===== */
+/* ======================
+   SIDEBAR
+   ====================== */
 .sidebar{
-    width:250px;
-    background:linear-gradient(180deg,#1e293b,#0f172a);
+    width:240px;
+    background:#1f2937;
     color:white;
-    padding:25px 20px;
+    padding:20px;
     display:flex;
     flex-direction:column;
 }
 
 .sidebar h2{
-    margin-bottom:35px;
-    font-size:18px;
-    letter-spacing:1px;
+    font-size:20px;
+    margin-bottom:30px;
+    font-weight:700;
 }
 
 .sidebar button{
     background:none;
     border:none;
-    color:#cbd5e1;
-    padding:12px;
+    color:white;
+    padding:12px 15px;
     text-align:left;
     cursor:pointer;
-    border-radius:8px;
-    margin-bottom:8px;
+    border-radius:6px;
+    margin-bottom:5px;
     font-size:14px;
-    transition:0.2s;
+    transition: all 0.2s ease-in-out;
 }
 
 .sidebar button:hover{
-    background:#334155;
-    color:white;
+    background:#374151;
+    transform: translateX(3px);
 }
 
-/* ===== CONTENIDO ===== */
+.sidebar button.active{
+    background:#2563eb;
+    font-weight:600;
+}
+
+/* ======================
+   CONTENIDO
+   ====================== */
 .contenido{
     flex:1;
-    padding:40px;
-    overflow:auto;
+    padding:30px;
+    overflow-y:auto;
 }
 
+/* ======================
+   PANTALLAS
+   ====================== */
 .pantalla{
     display:none;
-    animation: fadeIn 0.3s ease-in-out;
 }
 
-@keyframes fadeIn{
-    from { opacity:0; transform:translateY(10px); }
-    to { opacity:1; transform:translateY(0); }
-}
-
-/* ===== DASHBOARD GRID ===== */
-#pantallaDashboard{
-    display:grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-}
-
-/* ===== CARDS ===== */
+/* ======================
+   CARDS
+   ====================== */
 .card{
     background:white;
-    padding:25px;
-    border-radius:14px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.06);
-    transition:0.2s;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom:20px;
+    transition: all 0.2s ease;
 }
 
 .card:hover{
-    transform:translateY(-4px);
+    box-shadow:0 6px 20px rgba(0,0,0,0.12);
 }
 
-.card h3{
-    margin:0 0 10px 0;
-    font-size:14px;
-    color:#64748b;
-}
-
-.card p{
-    font-size:24px;
-    font-weight:bold;
-    margin:0;
-    color:#0f172a;
-}
-
-/* ===== INPUTS ===== */
-input{
-    width:100%;
-    padding:12px;
-    margin-bottom:12px;
-    border-radius:8px;
-    border:1px solid #cbd5e1;
-    font-size:14px;
-}
-
-input:focus{
-    outline:none;
-    border:1px solid #2563eb;
-}
-
-/* ===== BOTONES GENERALES ===== */
+/* ======================
+   BOTONES GENERALES
+   ====================== */
 button{
-    background:#2563eb;
+    background:#3b82f6;
     color:white;
     border:none;
-    padding:12px 18px;
+    padding:12px 20px;
     border-radius:8px;
     cursor:pointer;
     font-size:14px;
-    transition:0.2s;
+    transition: all 0.2s ease-in-out;
 }
 
 button:hover{
-    background:#1d4ed8;
+    background:#2563eb;
+    transform: translateY(-2px);
 }
 
-/* ===== LISTAS ===== */
-#listaProductos .producto,
-#listaVentas .producto{
+/* ======================
+   INPUTS
+   ====================== */
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+    outline:none;
+    transition: all 0.2s ease;
+}
+
+input:focus{
+    border-color:#3b82f6;
+    box-shadow:0 0 0 2px rgba(59,130,246,0.2);
+}
+
+/* ======================
+   LISTA DE PRODUCTOS Y VENTAS
+   ====================== */
+.producto{
     background:white;
     padding:15px;
-    border-radius:10px;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
     margin-bottom:10px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
 }
 
-/* ===== LOGIN ===== */
-#pantallaLogin{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    background:linear-gradient(135deg,#2563eb,#1e3a8a);
+.producto:hover{
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
-#pantallaLogin h2{
-    color:white;
-}
-
-#pantallaLogin input{
-    width:250px;
-}
-
-#pantallaLogin button{
-    width:250px;
+/* ======================
+   SUGERENCIAS BUSCADOR
+   ====================== */
+.sugerencias{
     background:white;
-    color:#1e3a8a;
-    font-weight:bold;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+    max-height:150px;
+    overflow-y:auto;
+    margin-top:0px;
 }
 
-#pantallaLogin button:hover{
-    background:#e2e8f0;
+.sugerencias div{
+    padding:8px;
+    cursor:pointer;
+    transition: all 0.2s ease;
 }
 
+.sugerencias div:hover{
+    background:#f3f4f6;
+}
+
+/* ======================
+   HORIZONTAL LINE
+   ====================== */
 hr{
     border:0;
     height:1px;
-    background:#334155;
-    margin:20px 0;
+    background:#374151;
+    margin:15px 0;
 }
-
-.sidebar button.activo{
-    background:#2563eb;
-    color:white;
-}
-
