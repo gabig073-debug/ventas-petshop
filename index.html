@@ -19,20 +19,30 @@
 <div class="container">
     
 <div class="menu">
+
+    <button onclick="mostrarPantalla('dashboard')">
+        <i class="fa-solid fa-chart-pie"></i> Dashboard
+    </button>
+
     <button onclick="mostrarPantalla('productos')">
-    <i class="fa-solid fa-box"></i> Productos
+        <i class="fa-solid fa-box"></i> Productos
     </button>
 
     <button onclick="mostrarPantalla('ventas')">
-    <i class="fa-solid fa-cash-register"></i> Ventas
+        <i class="fa-solid fa-cash-register"></i> Ventas
     </button>
 
     <button onclick="mostrarPantalla('reportes')">
-    <i class="fa-solid fa-chart-line"></i> Reportes
+        <i class="fa-solid fa-chart-line"></i> Reportes
     </button>
+
+    <button onclick="mostrarPantalla('configuracion')">
+        <i class="fa-solid fa-gear"></i> Configuración
+    </button>
+
 </div>
 
-<div id="pantallaDashboard">
+<div id="pantallaDashboard" class="pantalla">
 
 <h2><i class="fa-solid fa-chart-pie"></i> Panel General</h2>
 
@@ -58,7 +68,7 @@
 
 </div>
     
-<div id="pantallaProductos">
+<div id="pantallaProductos" class="pantalla">
 
 <h2><i class="fa-solid fa-plus-circle"></i> Agregar Producto</h2>
 
@@ -75,7 +85,7 @@
 
 </div>
     
-<div id="pantallaVentas">
+<div id="pantallaVentas" class="pantalla">
 
 <h2><i class="fa-solid fa-cart-shopping"></i> Nueva Venta</h2>
 
@@ -85,21 +95,13 @@
 <input id="cantidadVenta" type="number" placeholder="Cantidad">
 
 <button onclick="registrarVenta()">Registrar Venta</button>
-
-<button onclick="mostrarPantalla('configuracion')">
-    <i class="fa-solid fa-gear"></i> Configuración
-</button>
-
-<button onclick="mostrarPantalla('dashboard')">
-    <i class="fa-solid fa-chart-pie"></i> Dashboard
-</button>
     
 <h2>Ventas Realizadas</h2>
 <div id="listaVentas"></div>
 
 </div>
 
-<div id="pantallaReportes">
+<div id="pantallaReportes" class="pantalla">
 
 <h2><i class="fa-solid fa-file-excel"></i> Reportes</h2>
 
@@ -107,8 +109,8 @@
 
 </div>
 
-<div id="pantallaConfiguracion">
-
+<div id="pantallaConfiguracion" class="pantalla">
+    
 <h2><i class="fa-solid fa-gear"></i> Configuración del Negocio</h2>
 
 <input id="nombreNegocio" placeholder="Nombre del Negocio">
@@ -128,6 +130,7 @@
 </body>
 
 </html>
+
 
 
 
