@@ -12,6 +12,8 @@
 
 </head>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
 <body>
 
 <!-- LOGIN -->
@@ -86,6 +88,11 @@
                 <h3>Producto Más Vendido</h3>
                 <p id="productoTop">-</p>
             </div>
+
+            <div class="charts">
+            <canvas id="graficoVentasMes" width="400" height="200"></canvas>
+            <canvas id="graficoProductosTop" width="400" height="200"></canvas>
+            </div>
         </div>
 
         <!-- PRODUCTOS -->
@@ -146,3 +153,4 @@
 
 </body>
 </html>
+
