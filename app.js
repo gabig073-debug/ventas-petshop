@@ -8,9 +8,8 @@ function guardarProducto(){
 
     const nombre = document.getElementById("nombre").value;
     const marca = document.getElementById("marca").value;
-    const precioBolsa = Number(document.getElementById("precioBolsa").value);
-    const precioKilo = Number(document.getElementById("precioKilo").value);
-    const pesoBolsa = Number(document.getElementById("pesoBolsa").value);
+    const precio = Number(document.getElementById("precio").value);
+    const unidad = document.getElementById("unidad").value;
     const stock = Number(document.getElementById("stock").value);
 
     if(productoEditandoId){
@@ -19,9 +18,8 @@ function guardarProducto(){
 
         producto.nombre = nombre;
         producto.marca = marca;
-        producto.precioBolsa = precioBolsa;
-        producto.precioKilo = precioKilo;
-        producto.pesoBolsa = pesoBolsa;
+        producto.precio = precio;
+        producto.unidad = unidad;
         producto.stock = stock;
 
         productoEditandoId = null;
@@ -32,9 +30,8 @@ function guardarProducto(){
             id: Date.now(),
             nombre,
             marca,
-            precioBolsa,
-            precioKilo,
-            pesoBolsa,
+            precio,
+            unidad,
             stock
         };
 
@@ -78,8 +75,8 @@ function mostrarProductos(){
         lista.innerHTML += `
             <div class="producto">
                 <b>${p.nombre}</b> - ${p.marca}<br>
-                Stock: ${p.stock} kg<br>
-                Bolsa: $${p.precioBolsa} | Kg: $${p.precioKilo}<br>
+                Precio: $${p.precio} por ${p.unidad}<br>
+                Stock: ${p.stock} ${p.unidad}<br>
                 <button onclick="editarProducto(${p.id})">Editar</button>
             </div>
         `;
@@ -105,47 +102,31 @@ function editarProducto(id){
 function registrarVenta(){
 
     if(!productoSeleccionado){
-    alert("Seleccione un producto");
-    return;
-}
-
-const producto = productoSeleccionado;
-    const tipo = document.getElementById("tipoVenta").value;
-    const cantidad = Number(document.getElementById("cantidadVenta").value);
-
-    if(!producto){
-        alert("Producto no encontrado");
+        alert("Seleccione un producto");
         return;
     }
 
-    let kilosVendidos = 0;
-    let total = 0;
+    const cantidad = Number(document.getElementById("cantidadVenta").value);
+    const producto = productoSeleccionado;
 
-    if(tipo === "bolsa"){
-        kilosVendidos = cantidad * producto.pesoBolsa;
-        total = cantidad * producto.precioBolsa;
-    } else {
-        kilosVendidos = cantidad;
-        total = cantidad * producto.precioKilo;
-    }
-
-    if(producto.stock < kilosVendidos){
+    if(producto.stock < cantidad){
         alert("No hay stock suficiente");
         return;
     }
 
-    producto.stock -= kilosVendidos;
+    const total = cantidad * producto.precio;
+
+    producto.stock -= cantidad;
 
     const venta = {
-    id: Date.now(),
-    fecha: new Date().toLocaleString(),
-    productoId: producto.id,
-    producto: producto.nombre,
-    tipo: tipo,
-    cantidad: cantidad,
-    kilosVendidos: kilosVendidos,
-    total: total
-};
+        id: Date.now(),
+        fecha: new Date().toLocaleString(),
+        productoId: producto.id,
+        producto: producto.nombre,
+        cantidad: cantidad,
+        unidad: producto.unidad,
+        total: total
+    };
 
     ventas.push(venta);
 
@@ -154,7 +135,7 @@ const producto = productoSeleccionado;
 
     mostrarProductos();
     mostrarVentas();
-    
+
     productoSeleccionado = null;
     document.getElementById("buscarProducto").value = "";
     document.getElementById("cantidadVenta").value = "";
@@ -281,6 +262,3 @@ function mostrarPantalla(pantalla){
 window.onload = function(){
     mostrarPantalla("productos");
 };
-
-
-
