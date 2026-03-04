@@ -44,27 +44,22 @@ function guardarProducto(){
     mostrarProductos();
 }
 
-function mostrarPantalla(pantalla){
+function mostrarPantalla(nombre){
 
-    const prod = document.getElementById("pantallaProductos");
-    const vent = document.getElementById("pantallaVentas");
-    const rep = document.getElementById("pantallaReportes");
+    document.querySelectorAll(".pantalla").forEach(p => {
+        p.style.display = "none";
+    });
 
-    if(!prod || !vent || !rep){
-        console.log("Alguna pantalla no existe en el HTML");
-        return;
+    const pantalla = document.getElementById("pantalla" + 
+        nombre.charAt(0).toUpperCase() + nombre.slice(1)
+    );
+
+    if(pantalla){
+        pantalla.style.display = "block";
     }
 
-    prod.style.display = "none";
-    vent.style.display = "none";
-    rep.style.display = "none";
-
-    if(pantalla === "productos") prod.style.display = "block";
-    if(pantalla === "ventas") vent.style.display = "block";
-    if(pantalla === "reportes") rep.style.display = "block";
-
     if(nombre === "dashboard"){
-    actualizarDashboard();
+        actualizarDashboard();
     }
 }
 
@@ -346,4 +341,5 @@ function actualizarDashboard(){
     document.getElementById("cantidadVentas").innerText = contadorVentas;
     document.getElementById("productoTop").innerText = productoTop;
 }
+
 
