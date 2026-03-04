@@ -322,7 +322,7 @@ window.chartTop = new Chart(ctxTop, {
 // ======================
 let configuracion = JSON.parse(localStorage.getItem("configuracion")) || {};
 
-function guardarConfiguracion() {
+function guardarConfiguracion(){
     configuracion = {
         nombre: document.getElementById("nombreNegocio").value,
         dueno: document.getElementById("duenoNegocio").value,
@@ -334,6 +334,13 @@ function guardarConfiguracion() {
     localStorage.setItem("configuracion", JSON.stringify(configuracion));
     aplicarConfiguracion();
     alert("Configuración guardada");
+}
+
+function aplicarConfiguracion(){
+    if(configuracion.nombre){
+        document.getElementById("tituloSistema").innerText =
+            "🏪 " + configuracion.nombre + " - Sistema Comercial v2.0";
+    }
 }
 
 function aplicarConfiguracion() {
@@ -386,6 +393,7 @@ function cerrarSesion() {
 mostrarProductos();
 aplicarConfiguracion();
 verificarSesion();
+
 
 
 
