@@ -31,6 +31,32 @@
     <i class="fa-solid fa-chart-line"></i> Reportes
     </button>
 </div>
+
+<div id="pantallaDashboard">
+
+<h2><i class="fa-solid fa-chart-pie"></i> Panel General</h2>
+
+<div class="card">
+    <h3>Ventas de Hoy</h3>
+    <p id="ventasHoy">$0</p>
+</div>
+
+<div class="card">
+    <h3>Ventas del Mes</h3>
+    <p id="ventasMes">$0</p>
+</div>
+
+<div class="card">
+    <h3>Cantidad de Ventas</h3>
+    <p id="cantidadVentas">0</p>
+</div>
+
+<div class="card">
+    <h3>Producto Más Vendido</h3>
+    <p id="productoTop">-</p>
+</div>
+
+</div>
     
 <div id="pantallaProductos">
 
@@ -64,6 +90,10 @@
     <i class="fa-solid fa-gear"></i> Configuración
 </button>
 
+<button onclick="mostrarPantalla('dashboard')">
+    <i class="fa-solid fa-chart-pie"></i> Dashboard
+</button>
+    
 <h2>Ventas Realizadas</h2>
 <div id="listaVentas"></div>
 
@@ -98,6 +128,7 @@
 </body>
 
 </html>
+
 
 
 
