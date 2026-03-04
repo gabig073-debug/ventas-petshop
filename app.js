@@ -262,3 +262,5 @@ function mostrarPantalla(pantalla){
 window.onload = function(){
     mostrarPantalla("productos");
 };
+
+localStorage.clear();
