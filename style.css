@@ -165,3 +165,8 @@ hr{
     background:#334155;
     margin:20px 0;
 }
+
+.sidebar button.activo{
+    background:#2563eb;
+    color:white;
+}
