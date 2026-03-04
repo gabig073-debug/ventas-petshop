@@ -327,3 +327,25 @@ hr{
 .ventaCard button:hover{
     background:#ef4444;
 }
+
+/* ======================
+   REPORTES
+   ====================== */
+#pantallaReportes button#btnExportar{
+    background:#3b82f6; /* azul moderno */
+    color:white;
+    border:none;
+    padding:14px 24px;
+    font-size:16px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    transition: all 0.2s ease;
+}
+
+#pantallaReportes button#btnExportar:hover{
+    background:#2563eb; /* azul más intenso */
+    transform: translateY(-2px);
+}
