@@ -283,3 +283,14 @@ hr{
 #pantallaConfiguracion button:hover{
     background:#059669;
 }
+
+.pantalla {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.pantalla.mostrar {
+    display: block;
+    opacity: 1;
+}
