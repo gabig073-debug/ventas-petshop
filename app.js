@@ -264,3 +264,32 @@ window.onload = function(){
 };
 
 localStorage.clear();
+
+let configuracion = JSON.parse(localStorage.getItem("configuracion")) || {};
+
+function guardarConfiguracion(){
+
+    configuracion = {
+        nombre: document.getElementById("nombreNegocio").value,
+        dueno: document.getElementById("duenoNegocio").value,
+        telefono: document.getElementById("telefonoNegocio").value,
+        direccion: document.getElementById("direccionNegocio").value,
+        rubro: document.getElementById("rubroNegocio").value
+    };
+
+    localStorage.setItem("configuracion", JSON.stringify(configuracion));
+
+    aplicarConfiguracion();
+
+    alert("Configuración guardada");
+}
+
+function aplicarConfiguracion(){
+
+    if(configuracion.nombre){
+        document.querySelector("h1").innerText =
+            "🏪 " + configuracion.nombre + " - Sistema Comercial v2.0";
+    }
+}
+
+aplicarConfiguracion();
