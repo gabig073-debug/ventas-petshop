@@ -60,6 +60,10 @@
 
 <button onclick="registrarVenta()">Registrar Venta</button>
 
+<button onclick="mostrarPantalla('configuracion')">
+    <i class="fa-solid fa-gear"></i> Configuración
+</button>
+
 <h2>Ventas Realizadas</h2>
 <div id="listaVentas"></div>
 
@@ -73,6 +77,20 @@
 
 </div>
 
+<div id="pantallaConfiguracion">
+
+<h2><i class="fa-solid fa-gear"></i> Configuración del Negocio</h2>
+
+<input id="nombreNegocio" placeholder="Nombre del Negocio">
+<input id="duenoNegocio" placeholder="Nombre del Dueño">
+<input id="telefonoNegocio" placeholder="Teléfono">
+<input id="direccionNegocio" placeholder="Dirección">
+<input id="rubroNegocio" placeholder="Rubro">
+
+<button onclick="guardarConfiguracion()">Guardar Configuración</button>
+
+</div>
+
 </div>
     
 <script src="app.js"></script>
@@ -80,5 +98,6 @@
 </body>
 
 </html>
+
 
 
