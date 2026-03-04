@@ -349,3 +349,40 @@ hr{
     background:#2563eb; /* azul más intenso */
     transform: translateY(-2px);
 }
+
+/* ======================
+   CONFIGURACION
+   ====================== */
+#pantallaConfiguracion input{
+    border:1px solid #d1d5db;
+    padding:10px;
+    border-radius:6px;
+    margin:8px 0;
+    outline:none;
+    width:100%;
+    transition: all 0.2s ease;
+}
+
+#pantallaConfiguracion input:focus{
+    border-color:#3b82f6;
+    box-shadow:0 0 0 2px rgba(59,130,246,0.2);
+}
+
+#pantallaConfiguracion button#btnGuardarConfig{
+    background:#10b981; /* verde moderno */
+    color:white;
+    border:none;
+    padding:12px 22px;
+    font-size:16px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    transition: all 0.2s ease;
+}
+
+#pantallaConfiguracion button#btnGuardarConfig:hover{
+    background:#059669; /* verde más intenso */
+    transform: translateY(-2px);
+}
