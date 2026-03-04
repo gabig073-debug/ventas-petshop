@@ -395,6 +395,37 @@ mostrarProductos();
 aplicarConfiguracion();
 verificarSesion();
 
+function agregarAlCarrito(){
+
+    const nombreProducto = document.getElementById("buscarProducto").value;
+    const cantidad = parseFloat(document.getElementById("cantidadVenta").value);
+
+    if(!nombreProducto || !cantidad){
+        alert("Completar producto y cantidad");
+        return;
+    }
+
+    const producto = productos.find(p => p.nombre === nombreProducto);
+    if(!producto){
+        alert("Producto no encontrado");
+        return;
+    }
+
+    const item = {
+        productoId: producto.id,
+        producto: producto.nombre,
+        precio: producto.precio,
+        cantidad: cantidad,
+        subtotal: producto.precio * cantidad
+    };
+
+    carrito.push(item);
+
+    document.getElementById("buscarProducto").value = "";
+    document.getElementById("cantidadVenta").value = "";
+
+    actualizarCarrito();
+}
 
 
 
