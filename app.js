@@ -164,8 +164,8 @@ function eliminarVenta(idVenta){
 
     const producto = productos.find(p => p.id === venta.productoId);
 
-    if(producto && venta.kilosVendidos){
-        producto.stock += venta.kilosVendidos;
+    if(producto){
+    producto.stock += venta.cantidad;
     }
 
     ventas = ventas.filter(v => v.id !== idVenta);
@@ -225,7 +225,7 @@ function exportarVentas(){
     let contenido = "Fecha;Producto;Tipo;Cantidad;Total\n";
 
     ventas.forEach(v => {
-        contenido += `${v.fecha};${v.nombre};${v.tipo};${v.cantidad};${v.total}\n`;
+    contenido += `${v.fecha};${v.producto};${v.unidad};${v.cantidad};${v.total}\n`;
     });
 
     const blob = new Blob([contenido], { type: "text/csv;charset=utf-8;" });
@@ -368,7 +368,3 @@ function cerrarSesion(){
 }
 
 verificarSesion();
-
-
-
-
