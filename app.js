@@ -74,6 +74,16 @@ function mostrarPantalla(nombre){
     if(nombre === "dashboard"){
         actualizarDashboard();
     }
+
+    // Quitar clase active de todos los botones
+    document.querySelectorAll('.sidebar button').forEach(btn => {
+    btn.classList.remove('active');
+    });
+
+    // Poner active al botón correspondiente
+    const boton = Array.from(document.querySelectorAll('.sidebar button'))
+    .find(b => b.textContent.trim().toLowerCase() === nombre.toLowerCase());
+    if(boton) boton.classList.add('active');
 }
 
 function mostrarProductos(){
@@ -380,6 +390,7 @@ function cerrarSesion(){
 }
 
 verificarSesion();
+
 
 
 
