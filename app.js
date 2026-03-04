@@ -227,27 +227,90 @@ function actualizarDashboard() {
         const fechaVenta = new Date(v.fecha);
         const fechaTexto = fechaVenta.toLocaleDateString();
 
+        // Sumar ventas de hoy
         if (fechaTexto === hoy) totalHoy += v.total;
+
+        // Sumar ventas del mes
         if (fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual)
             totalMes += v.total;
 
-        if (!productosVendidos[v.producto]) productosVendidos[v.producto] = 0;
-        productosVendidos[v.producto] += v.cantidad;
+        // Contar productos vendidos usando ID
+        if (!productosVendidos[v.productoId]) productosVendidos[v.productoId] = 0;
+        productosVendidos[v.productoId] += v.cantidad;
     });
 
+    // Producto más vendido
     let productoTop = "-", maxCantidad = 0;
-    for (let prod in productosVendidos) {
-        if (productosVendidos[prod] > maxCantidad) {
-            maxCantidad = productosVendidos[prod];
-            productoTop = prod;
+    for (let id in productosVendidos) {
+        if (productosVendidos[id] > maxCantidad) {
+            maxCantidad = productosVendidos[id];
+            const prod = productos.find(p => p.id == id);
+            productoTop = prod ? prod.nombre : "Desconocido";
         }
     }
 
-    document.getElementById("ventasHoy").innerText = "$" + totalHoy;
-    document.getElementById("ventasMes").innerText = "$" + totalMes;
+    // Mostrar en dashboard
+    document.getElementById("ventasHoy").innerText = "$" + totalHoy.toFixed(2);
+    document.getElementById("ventasMes").innerText = "$" + totalMes.toFixed(2);
     document.getElementById("cantidadVentas").innerText = contadorVentas;
     document.getElementById("productoTop").innerText = productoTop;
+
+    // ===== GRAFICO VENTAS DEL MES =====
+    const diasDelMes = Array.from({length: 31}, (_, i) => (i+1).toString());
+    let ventasPorDia = Array(31).fill(0);
+
+    ventas.forEach(v => {
+        const fecha = new Date(v.fecha);
+        if(fecha.getMonth() === mesActual && fecha.getFullYear() === anioActual){
+            ventasPorDia[fecha.getDate()-1] += v.total;
+        }
+    });
+
+    const ctxVentas = document.getElementById('graficoVentasMes').getContext('2d');
+    if(window.chartVentas) window.chartVentas.destroy(); // evita duplicados
+    window.chartVentas = new Chart(ctxVentas, {
+        type: 'bar',
+        data: {
+            labels: diasDelMes,
+            datasets: [{
+                label: 'Ventas del Mes ($)',
+                data: ventasPorDia,
+                backgroundColor: '#3b82f6'
+            }]
+        },
+        options: {
+            responsive:true,
+            plugins:{ legend:{ display:false } },
+            scales:{ y:{ beginAtZero:true } }
+        }
+    });
 }
+// ===== GRAFICO PRODUCTOS MAS VENDIDOS =====
+let productosVendidos = {};
+ventas.forEach(v => {
+    if(!productosVendidos[v.producto]) productosVendidos[v.producto]=0;
+    productosVendidos[v.producto] += v.cantidad;
+});
+
+const etiquetas = Object.keys(productosVendidos);
+const cantidades = Object.values(productosVendidos);
+
+const ctxTop = document.getElementById('graficoProductosTop').getContext('2d');
+if(window.chartTop) window.chartTop.destroy(); // evita duplicados
+window.chartTop = new Chart(ctxTop, {
+    type:'pie',
+    data:{
+        labels: etiquetas,
+        datasets:[{
+            data: cantidades,
+            backgroundColor: etiquetas.map((_,i)=>`hsl(${i*60},70%,50%)`)
+        }]
+    },
+    options:{
+        responsive:true,
+        plugins:{ legend:{ position:'bottom' } }
+    }
+});
 
 // ======================
 // CONFIGURACION DEL NEGOCIO
@@ -318,3 +381,4 @@ function cerrarSesion() {
 mostrarProductos();
 aplicarConfiguracion();
 verificarSesion();
+
