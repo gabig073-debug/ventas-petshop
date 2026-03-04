@@ -99,6 +99,13 @@ h3{
    ====================== */
 .pantalla{
     display:none;
+    opacity:0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.pantalla.mostrar{
+    display:block;
+    opacity:1;
 }
 
 /* ======================
@@ -110,6 +117,7 @@ h3{
     border-radius:10px;
     box-shadow:0 4px 12px rgba(0,0,0,0.08);
     margin-bottom:20px;
+    min-height:120px;
     transition: all 0.2s ease;
 }
 
@@ -128,7 +136,7 @@ button{
     border-radius:8px;
     cursor:pointer;
     font-size:14px;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.25s ease;
 }
 
 button:hover{
@@ -146,12 +154,17 @@ input{
     border:1px solid #d1d5db;
     border-radius:6px;
     outline:none;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 input:focus{
     border-color:#3b82f6;
     box-shadow:0 0 0 2px rgba(59,130,246,0.2);
+}
+
+input::placeholder{
+    color:#9ca3af;
+    font-style:italic;
 }
 
 /* ======================
@@ -163,11 +176,36 @@ input:focus{
     border-radius:8px;
     box-shadow:0 2px 6px rgba(0,0,0,0.05);
     margin-bottom:10px;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .producto:hover{
     box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+
+.producto button{
+    background:#fbbf24;
+    color:white;
+    border:none;
+    border-radius:6px;
+    padding:6px 12px;
+    margin-top:5px;
+    cursor:pointer;
+    transition: all 0.25s ease;
+}
+
+.producto button:hover{
+    background:#f59e0b;
+}
+
+.producto span.total{
+    color:#3b82f6;
+    font-weight:600;
+}
+
+.producto span.cantidad{
+    color:#10b981;
+    font-weight:500;
 }
 
 /* ======================
@@ -185,7 +223,7 @@ input:focus{
 .sugerencias div{
     padding:8px;
     cursor:pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .sugerencias div:hover{
@@ -216,81 +254,14 @@ hr{
 }
 
 /* COLORES DISTINTOS POR CARD */
-#ventasHoy{
-    color:#ef4444; /* rojo */
-    font-weight:600;
-}
+#ventasHoy{color:#ef4444;font-weight:600;}
+#ventasMes{color:#f59e0b;font-weight:600;}
+#cantidadVentas{color:#10b981;font-weight:600;}
+#productoTop{color:#6366f1;font-weight:600;}
 
-#ventasMes{
-    color:#f59e0b; /* naranja */
-    font-weight:600;
-}
+/* BOTONES DE PANTALLAS ESPECÍFICAS */
+#pantallaReportes button{background:#2563eb; display:flex; align-items:center; gap:10px; font-size:16px;}
+#pantallaReportes button:hover{background:#1d4ed8;}
 
-#cantidadVentas{
-    color:#10b981; /* verde */
-    font-weight:600;
-}
-
-#productoTop{
-    color:#6366f1; /* azul */
-    font-weight:600;
-}
-
-.producto button{
-    background:#fbbf24; /* amarillo */
-    color:white;
-    border:none;
-    border-radius:6px;
-    padding:6px 12px;
-    margin-top:5px;
-    cursor:pointer;
-    transition: all 0.2s;
-}
-
-.producto button:hover{
-    background:#f59e0b;
-}
-
-.producto span.total{
-    color:#3b82f6;
-    font-weight:600;
-}
-.producto span.cantidad{
-    color:#10b981;
-    font-weight:500;
-}
-
-#pantallaReportes button{
-    background:#2563eb;
-    padding:12px 20px;
-    font-size:16px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-#pantallaReportes button:hover{
-    background:#1d4ed8;
-}
-
-#pantallaConfiguracion button{
-    background:#10b981;
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-#pantallaConfiguracion button:hover{
-    background:#059669;
-}
-
-.pantalla {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.pantalla.mostrar {
-    display: block;
-    opacity: 1;
-}
+#pantallaConfiguracion button{background:#10b981; display:flex; align-items:center; gap:8px;}
+#pantallaConfiguracion button:hover{background:#059669;}
