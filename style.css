@@ -201,3 +201,85 @@ hr{
     background:#374151;
     margin:15px 0;
 }
+
+/* ICONOS GRANDES EN CARDS */
+.card h3{
+    display:flex;
+    align-items:center;
+    font-size:16px;
+}
+
+.card h3 i{
+    font-size:24px;
+    margin-right:10px;
+    color:#3b82f6;
+}
+
+/* COLORES DISTINTOS POR CARD */
+#ventasHoy{
+    color:#ef4444; /* rojo */
+    font-weight:600;
+}
+
+#ventasMes{
+    color:#f59e0b; /* naranja */
+    font-weight:600;
+}
+
+#cantidadVentas{
+    color:#10b981; /* verde */
+    font-weight:600;
+}
+
+#productoTop{
+    color:#6366f1; /* azul */
+    font-weight:600;
+}
+
+.producto button{
+    background:#fbbf24; /* amarillo */
+    color:white;
+    border:none;
+    border-radius:6px;
+    padding:6px 12px;
+    margin-top:5px;
+    cursor:pointer;
+    transition: all 0.2s;
+}
+
+.producto button:hover{
+    background:#f59e0b;
+}
+
+.producto span.total{
+    color:#3b82f6;
+    font-weight:600;
+}
+.producto span.cantidad{
+    color:#10b981;
+    font-weight:500;
+}
+
+#pantallaReportes button{
+    background:#2563eb;
+    padding:12px 20px;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+#pantallaReportes button:hover{
+    background:#1d4ed8;
+}
+
+#pantallaConfiguracion button{
+    background:#10b981;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+#pantallaConfiguracion button:hover{
+    background:#059669;
+}
