@@ -293,3 +293,52 @@ function aplicarConfiguracion(){
 }
 
 aplicarConfiguracion();
+
+function actualizarDashboard(){
+
+    if(!ventas) return;
+
+    const hoy = new Date().toLocaleDateString();
+    const mesActual = new Date().getMonth();
+    const anioActual = new Date().getFullYear();
+
+    let totalHoy = 0;
+    let totalMes = 0;
+    let contadorVentas = ventas.length;
+    let productosVendidos = {};
+
+    ventas.forEach(v => {
+
+        const fechaVenta = new Date(v.fecha);
+        const fechaTexto = fechaVenta.toLocaleDateString();
+
+        if(fechaTexto === hoy){
+            totalHoy += v.total;
+        }
+
+        if(fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual){
+            totalMes += v.total;
+        }
+
+        if(!productosVendidos[v.producto]){
+            productosVendidos[v.producto] = 0;
+        }
+
+        productosVendidos[v.producto] += v.cantidad;
+    });
+
+    let productoTop = "-";
+    let maxCantidad = 0;
+
+    for(let producto in productosVendidos){
+        if(productosVendidos[producto] > maxCantidad){
+            maxCantidad = productosVendidos[producto];
+            productoTop = producto;
+        }
+    }
+
+    document.getElementById("ventasHoy").innerText = "$" + totalHoy;
+    document.getElementById("ventasMes").innerText = "$" + totalMes;
+    document.getElementById("cantidadVentas").innerText = contadorVentas;
+    document.getElementById("productoTop").innerText = productoTop;
+}
