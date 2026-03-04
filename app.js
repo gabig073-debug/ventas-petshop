@@ -286,8 +286,8 @@ function guardarConfiguracion(){
 function aplicarConfiguracion(){
 
     if(configuracion.nombre){
-        document.querySelector("h1").innerText =
-            "🏪 " + configuracion.nombre + " - Sistema Comercial v2.0";
+        document.getElementById("tituloSistema").innerText =
+    "🏪 " + configuracion.nombre + " - Sistema Comercial v2.0";
     }
 }
 
@@ -341,5 +341,6 @@ function actualizarDashboard(){
     document.getElementById("cantidadVentas").innerText = contadorVentas;
     document.getElementById("productoTop").innerText = productoTop;
 }
+
 
 
