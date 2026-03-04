@@ -139,7 +139,7 @@
 
         <!-- CONFIGURACION -->
         <div id="pantallaConfiguracion" class="pantalla">
-            <h2>Configuración del Negocio</h2>
+            <h2><i class="fa-solid fa-gear"></i> Configuración del Negocio</h2>
 
             <input id="nombreNegocio" placeholder="Nombre del Negocio">
             <input id="duenoNegocio" placeholder="Nombre del Dueño">
@@ -147,7 +147,13 @@
             <input id="direccionNegocio" placeholder="Dirección">
             <input id="rubroNegocio" placeholder="Rubro">
 
-            <button onclick="guardarConfiguracion()">Guardar Configuración</button>
+            <button id="btnGuardarConfig" onclick="guardarConfiguracion()">
+            <i class="fa-solid fa-floppy-disk"></i> Guardar Configuración
+            </button>
+
+<button onclick="cerrarSesion()">
+    <i class="fa-solid fa-right-from-bracket"></i> Salir
+</button>
         </div>
 
     </div>
@@ -158,6 +164,7 @@
 
 </body>
 </html>
+
 
 
 
