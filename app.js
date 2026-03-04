@@ -46,12 +46,13 @@ function guardarProducto(){
 
 function mostrarPantalla(nombre){
 
-    document.querySelectorAll(".pantalla").forEach(p => {
+    // Oculta solo pantallas dentro del sistema
+    document.querySelectorAll("#sistema .pantalla").forEach(p => {
         p.style.display = "none";
     });
 
-    const pantalla = document.getElementById("pantalla" + 
-        nombre.charAt(0).toUpperCase() + nombre.slice(1)
+    const pantalla = document.getElementById(
+        "pantalla" + nombre.charAt(0).toUpperCase() + nombre.slice(1)
     );
 
     if(pantalla){
@@ -62,8 +63,6 @@ function mostrarPantalla(nombre){
         actualizarDashboard();
     }
 }
-
-mostrarVentas();
 
 function mostrarProductos(){
 
@@ -391,3 +390,4 @@ function cerrarSesion(){
 }
 
 verificarSesion();
+
