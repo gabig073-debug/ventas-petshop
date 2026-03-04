@@ -5,6 +5,7 @@ let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
 let productoSeleccionado = null;
 let productoEditandoId = null;
+let carrito = [];
 
 // ======================
 // PRODUCTOS
@@ -393,6 +394,7 @@ function cerrarSesion() {
 mostrarProductos();
 aplicarConfiguracion();
 verificarSesion();
+
 
 
 
