@@ -179,21 +179,23 @@ document.getElementById("buscarProducto").addEventListener("input", function () 
 // ======================
 // EXPORTAR VENTAS
 // ======================
-function exportarVentas() {
-    if (ventas.length === 0) {
+function exportarVentas(){
+
+    if(ventas.length === 0){
         alert("No hay ventas para exportar");
         return;
     }
 
-    let contenido = "Fecha;Producto;Cantidad;Unidad;Total\n";
+    let contenido = "Fecha;Producto;Tipo;Cantidad;Total\n";
+
     ventas.forEach(v => {
-        contenido += `${v.fecha};${v.producto};${v.cantidad};${v.unidad};${v.total}\n`;
+        contenido += `${v.fecha};${v.producto};${v.unidad};${v.cantidad};${v.total}\n`;
     });
 
     const blob = new Blob([contenido], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "ventas.csv";
+    link.download = "ventas_petshop.csv";
     link.click();
 }
 
@@ -384,5 +386,6 @@ function cerrarSesion() {
 mostrarProductos();
 aplicarConfiguracion();
 verificarSesion();
+
 
 
