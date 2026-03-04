@@ -105,17 +105,20 @@ function registrarVenta() {
     document.getElementById("cantidadVenta").value = "";
 }
 
-function mostrarVentas() {
+function mostrarVentas(){
     const lista = document.getElementById("listaVentas");
     lista.innerHTML = "";
 
     ventas.forEach(v => {
         lista.innerHTML += `
-            <div class="producto">
-                ${v.fecha}<br>
-                ${v.producto} - ${v.cantidad} ${v.unidad}<br>
-                Total: $${v.total}<br>
-                <button onclick="eliminarVenta(${v.id})">Eliminar</button>
+            <div class="ventaCard">
+                <b>${v.fecha}</b><br>
+                Producto: ${v.producto}<br>
+                <span class="cantidad">Cantidad: ${v.cantidad} ${v.unidad}</span><br>
+                <span class="total">Total: $${v.total}</span><br>
+                <button onclick="eliminarVenta(${v.id})">
+                    <i class="fa-solid fa-trash"></i> Eliminar
+                </button>
             </div>
         `;
     });
@@ -381,4 +384,5 @@ function cerrarSesion() {
 mostrarProductos();
 aplicarConfiguracion();
 verificarSesion();
+
 
