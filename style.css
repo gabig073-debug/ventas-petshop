@@ -281,3 +281,49 @@ hr{
     flex:1;
     min-width:300px;
 }
+
+/* ======================
+   VENTAS
+   ====================== */
+.ventaCard{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    border-left:5px solid #3b82f6; /* borde azul */
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom:15px;
+    transition: all 0.2s ease;
+}
+
+.ventaCard:hover{
+    box-shadow:0 6px 20px rgba(0,0,0,0.12);
+}
+
+.ventaCard .cantidad{
+    color:#10b981; /* verde */
+    font-weight:600;
+}
+
+.ventaCard .total{
+    color:#3b82f6; /* azul */
+    font-weight:700;
+}
+
+.ventaCard button{
+    background:#f87171; /* rojo */
+    color:white;
+    border:none;
+    border-radius:6px;
+    padding:6px 12px;
+    margin-top:8px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:14px;
+    transition: all 0.2s;
+}
+
+.ventaCard button:hover{
+    background:#ef4444;
+}
