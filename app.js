@@ -1,93 +1,40 @@
+// ======================
+// VARIABLES
+// ======================
 let ventas = JSON.parse(localStorage.getItem("ventas")) || [];
+let productos = JSON.parse(localStorage.getItem("productos")) || [];
 let productoSeleccionado = null;
 let productoEditandoId = null;
 
-let productos = JSON.parse(localStorage.getItem("productos")) || [];
-
-function guardarProducto(){
-
+// ======================
+// PRODUCTOS
+// ======================
+function guardarProducto() {
     const nombre = document.getElementById("nombre").value;
     const marca = document.getElementById("marca").value;
     const precio = Number(document.getElementById("precio").value);
     const unidad = document.getElementById("unidad").value;
     const stock = Number(document.getElementById("stock").value);
 
-    if(productoEditandoId){
-
+    if (productoEditandoId) {
         const producto = productos.find(p => p.id === productoEditandoId);
-
         producto.nombre = nombre;
         producto.marca = marca;
         producto.precio = precio;
         producto.unidad = unidad;
         producto.stock = stock;
-
         productoEditandoId = null;
-
     } else {
-
-        const nuevoProducto = {
-            id: Date.now(),
-            nombre,
-            marca,
-            precio,
-            unidad,
-            stock
-        };
-
+        const nuevoProducto = { id: Date.now(), nombre, marca, precio, unidad, stock };
         productos.push(nuevoProducto);
     }
 
     localStorage.setItem("productos", JSON.stringify(productos));
-
     limpiarInputs();
     mostrarProductos();
 }
 
-function mostrarPantalla(nombre){
-
-    document.querySelectorAll("#sistema .pantalla").forEach(p => {
-        p.style.display = "none";
-    });
-
-    const pantalla = document.getElementById(
-        "pantalla" + nombre.charAt(0).toUpperCase() + nombre.slice(1)
-    );
-
-    if(pantalla){
-        pantalla.style.display = "block";
-    }
-
-    // 🔥 NUEVO: botón activo
-    document.querySelectorAll(".sidebar button").forEach(b => {
-        b.classList.remove("activo");
-    });
-
-    const botonActivo = document.querySelector(
-        `.sidebar button[onclick="mostrarPantalla('${nombre}')"]`
-    );
-
-    if(botonActivo){
-        botonActivo.classList.add("activo");
-    }
-
-    if(nombre === "dashboard"){
-        actualizarDashboard();
-    }
-
-    // Quitar clase active de todos los botones
-    document.querySelectorAll('.sidebar button').forEach(btn => {
-    btn.classList.remove('active');
-    });
-
-    // Poner active al botón correspondiente
-    const boton = Array.from(document.querySelectorAll('.sidebar button'))
-    .find(b => b.textContent.trim().toLowerCase() === nombre.toLowerCase());
-    if(boton) boton.classList.add('active');
-}
-
-function mostrarProductos(){
-
+function mostrarProductos() {
     const lista = document.getElementById("listaProductos");
     lista.innerHTML = "";
 
@@ -103,11 +50,9 @@ function mostrarProductos(){
     });
 }
 
-function editarProducto(id){
-
+function editarProducto(id) {
     const producto = productos.find(p => p.id === id);
-
-    if(!producto) return;
+    if (!producto) return;
 
     document.getElementById("nombre").value = producto.nombre;
     document.getElementById("marca").value = producto.marca;
@@ -118,9 +63,11 @@ function editarProducto(id){
     productoEditandoId = id;
 }
 
-function registrarVenta(){
-
-    if(!productoSeleccionado){
+// ======================
+// VENTAS
+// ======================
+function registrarVenta() {
+    if (!productoSeleccionado) {
         alert("Seleccione un producto");
         return;
     }
@@ -128,13 +75,12 @@ function registrarVenta(){
     const cantidad = Number(document.getElementById("cantidadVenta").value);
     const producto = productoSeleccionado;
 
-    if(producto.stock < cantidad){
+    if (producto.stock < cantidad) {
         alert("No hay stock suficiente");
         return;
     }
 
     const total = cantidad * producto.precio;
-
     producto.stock -= cantidad;
 
     const venta = {
@@ -148,7 +94,6 @@ function registrarVenta(){
     };
 
     ventas.push(venta);
-
     localStorage.setItem("ventas", JSON.stringify(ventas));
     localStorage.setItem("productos", JSON.stringify(productos));
 
@@ -160,7 +105,7 @@ function registrarVenta(){
     document.getElementById("cantidadVenta").value = "";
 }
 
-function mostrarVentas(){
+function mostrarVentas() {
     const lista = document.getElementById("listaVentas");
     lista.innerHTML = "";
 
@@ -168,7 +113,7 @@ function mostrarVentas(){
         lista.innerHTML += `
             <div class="producto">
                 ${v.fecha}<br>
-                ${v.producto} - ${v.tipo} - ${v.cantidad}<br>
+                ${v.producto} - ${v.cantidad} ${v.unidad}<br>
                 Total: $${v.total}<br>
                 <button onclick="eliminarVenta(${v.id})">Eliminar</button>
             </div>
@@ -176,19 +121,12 @@ function mostrarVentas(){
     });
 }
 
-function eliminarVenta(idVenta){
-
+function eliminarVenta(idVenta) {
     const venta = ventas.find(v => v.id === idVenta);
-
-    if(!venta){
-        return;
-    }
+    if (!venta) return;
 
     const producto = productos.find(p => p.id === venta.productoId);
-
-    if(producto){
-    producto.stock += venta.cantidad;
-    }
+    if (producto) producto.stock += venta.cantidad;
 
     ventas = ventas.filter(v => v.id !== idVenta);
 
@@ -198,35 +136,34 @@ function eliminarVenta(idVenta){
     mostrarProductos();
     mostrarVentas();
 }
-    
-function limpiarInputs(){
-    document.querySelectorAll("input").forEach(i => i.value="");
+
+// ======================
+// LIMPIAR INPUTS
+// ======================
+function limpiarInputs() {
+    document.querySelectorAll("input").forEach(i => i.value = "");
 }
 
-
-mostrarProductos();
-
-document.getElementById("buscarProducto").addEventListener("input", function(){
-
+// ======================
+// BUSCADOR PRODUCTOS
+// ======================
+document.getElementById("buscarProducto").addEventListener("input", function () {
     const texto = this.value.toLowerCase();
     const sugerencias = document.getElementById("sugerencias");
-
     sugerencias.innerHTML = "";
 
-    if(texto === ""){
-        return;
-    }
+    if (texto === "") return;
 
-    const filtrados = productos.filter(p => 
-    (p.nombre && p.nombre.toLowerCase().includes(texto)) ||
-    (p.marca && p.marca.toLowerCase().includes(texto))
-);
+    const filtrados = productos.filter(p =>
+        (p.nombre && p.nombre.toLowerCase().includes(texto)) ||
+        (p.marca && p.marca.toLowerCase().includes(texto))
+    );
 
     filtrados.forEach(p => {
         const div = document.createElement("div");
-        div.textContent = `${p.nombre} (${p.stock} kg)`;
+        div.textContent = `${p.nombre} (${p.stock} ${p.unidad})`;
 
-        div.onclick = function(){
+        div.onclick = function () {
             document.getElementById("buscarProducto").value = p.nombre;
             productoSeleccionado = p;
             sugerencias.innerHTML = "";
@@ -234,104 +171,75 @@ document.getElementById("buscarProducto").addEventListener("input", function(){
 
         sugerencias.appendChild(div);
     });
-
 });
 
-function exportarVentas(){
-
-    if(ventas.length === 0){
+// ======================
+// EXPORTAR VENTAS
+// ======================
+function exportarVentas() {
+    if (ventas.length === 0) {
         alert("No hay ventas para exportar");
         return;
     }
 
-    let contenido = "Fecha;Producto;Tipo;Cantidad;Total\n";
-
+    let contenido = "Fecha;Producto;Cantidad;Unidad;Total\n";
     ventas.forEach(v => {
-    contenido += `${v.fecha};${v.producto};${v.unidad};${v.cantidad};${v.total}\n`;
+        contenido += `${v.fecha};${v.producto};${v.cantidad};${v.unidad};${v.total}\n`;
     });
 
     const blob = new Blob([contenido], { type: "text/csv;charset=utf-8;" });
-
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "ventas_petshop.csv";
-
+    link.download = "ventas.csv";
     link.click();
 }
 
-window.onload = function(){
-    mostrarPantalla("productos");
-};
+// ======================
+// PANTALLAS Y SIDEBAR
+// ======================
+function mostrarPantalla(nombre) {
+    document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('mostrar'));
 
-let configuracion = JSON.parse(localStorage.getItem("configuracion")) || {};
+    const pantallaElem = document.getElementById("pantalla" + nombre.charAt(0).toUpperCase() + nombre.slice(1));
+    if (pantallaElem) pantallaElem.classList.add('mostrar');
 
-function guardarConfiguracion(){
+    // Botón activo
+    document.querySelectorAll('.sidebar button').forEach(btn => btn.classList.remove('active'));
+    const boton = Array.from(document.querySelectorAll('.sidebar button'))
+        .find(b => b.textContent.trim().toLowerCase() === nombre.toLowerCase());
+    if (boton) boton.classList.add('active');
 
-    configuracion = {
-        nombre: document.getElementById("nombreNegocio").value,
-        dueno: document.getElementById("duenoNegocio").value,
-        telefono: document.getElementById("telefonoNegocio").value,
-        direccion: document.getElementById("direccionNegocio").value,
-        rubro: document.getElementById("rubroNegocio").value
-    };
-
-    localStorage.setItem("configuracion", JSON.stringify(configuracion));
-
-    aplicarConfiguracion();
-
-    alert("Configuración guardada");
+    if (nombre === "dashboard") actualizarDashboard();
 }
 
-function aplicarConfiguracion(){
-
-    if(configuracion.nombre){
-        document.getElementById("tituloSistema").innerText =
-    "🏪 " + configuracion.nombre + " - Sistema Comercial v2.0";
-    }
-}
-
-aplicarConfiguracion();
-
-function actualizarDashboard(){
-
-    if(!ventas) return;
-
+// ======================
+// DASHBOARD
+// ======================
+function actualizarDashboard() {
     const hoy = new Date().toLocaleDateString();
     const mesActual = new Date().getMonth();
     const anioActual = new Date().getFullYear();
 
-    let totalHoy = 0;
-    let totalMes = 0;
-    let contadorVentas = ventas.length;
+    let totalHoy = 0, totalMes = 0, contadorVentas = ventas.length;
     let productosVendidos = {};
 
     ventas.forEach(v => {
-
         const fechaVenta = new Date(v.fecha);
         const fechaTexto = fechaVenta.toLocaleDateString();
 
-        if(fechaTexto === hoy){
-            totalHoy += v.total;
-        }
-
-        if(fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual){
+        if (fechaTexto === hoy) totalHoy += v.total;
+        if (fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual)
             totalMes += v.total;
-        }
 
-        if(!productosVendidos[v.producto]){
-            productosVendidos[v.producto] = 0;
-        }
-
+        if (!productosVendidos[v.producto]) productosVendidos[v.producto] = 0;
         productosVendidos[v.producto] += v.cantidad;
     });
 
-    let productoTop = "-";
-    let maxCantidad = 0;
-
-    for(let producto in productosVendidos){
-        if(productosVendidos[producto] > maxCantidad){
-            maxCantidad = productosVendidos[producto];
-            productoTop = producto;
+    let productoTop = "-", maxCantidad = 0;
+    for (let prod in productosVendidos) {
+        if (productosVendidos[prod] > maxCantidad) {
+            maxCantidad = productosVendidos[prod];
+            productoTop = prod;
         }
     }
 
@@ -341,56 +249,72 @@ function actualizarDashboard(){
     document.getElementById("productoTop").innerText = productoTop;
 }
 
-// Usuario por defecto (solo la primera vez)
-if(!localStorage.getItem("usuarioSistema")){
-    localStorage.setItem("usuarioSistema", JSON.stringify({
-        usuario: "admin",
-        password: "1234"
-    }));
+// ======================
+// CONFIGURACION DEL NEGOCIO
+// ======================
+let configuracion = JSON.parse(localStorage.getItem("configuracion")) || {};
+
+function guardarConfiguracion() {
+    configuracion = {
+        nombre: document.getElementById("nombreNegocio").value,
+        dueno: document.getElementById("duenoNegocio").value,
+        telefono: document.getElementById("telefonoNegocio").value,
+        direccion: document.getElementById("direccionNegocio").value,
+        rubro: document.getElementById("rubroNegocio").value
+    };
+
+    localStorage.setItem("configuracion", JSON.stringify(configuracion));
+    aplicarConfiguracion();
+    alert("Configuración guardada");
+}
+
+function aplicarConfiguracion() {
+    if (configuracion.nombre)
+        document.getElementById("tituloSistema").innerText = "🏪 " + configuracion.nombre + " - Sistema Comercial v2.0";
+}
+
+// ======================
+// LOGIN Y SESION
+// ======================
+if (!localStorage.getItem("usuarioSistema")) {
+    localStorage.setItem("usuarioSistema", JSON.stringify({ usuario: "admin", password: "1234" }));
 }
 
 let usuarioGuardado = JSON.parse(localStorage.getItem("usuarioSistema"));
 let sesionActiva = localStorage.getItem("sesionActiva");
 
-function iniciarSesion(){
-
+function iniciarSesion() {
     const usuario = document.getElementById("usuarioLogin").value;
     const password = document.getElementById("passwordLogin").value;
 
-    if(usuario === usuarioGuardado.usuario &&
-       password === usuarioGuardado.password){
-
+    if (usuario === usuarioGuardado.usuario && password === usuarioGuardado.password) {
         localStorage.setItem("sesionActiva", "true");
-
         document.getElementById("pantallaLogin").style.display = "none";
-        document.getElementById("sistema").style.display = "block";
-
+        document.getElementById("sistema").style.display = "flex";
         mostrarPantalla("dashboard");
-
     } else {
         alert("Usuario o contraseña incorrectos");
     }
 }
 
-function verificarSesion(){
-
-    if(sesionActiva === "true"){
+function verificarSesion() {
+    if (sesionActiva === "true") {
         document.getElementById("pantallaLogin").style.display = "none";
-        document.getElementById("sistema").style.display = "block";
+        document.getElementById("sistema").style.display = "flex";
         mostrarPantalla("dashboard");
     } else {
         document.getElementById("pantallaLogin").style.display = "block";
     }
 }
 
-function cerrarSesion(){
-
+function cerrarSesion() {
     localStorage.removeItem("sesionActiva");
     location.reload();
 }
 
+// ======================
+// INICIALIZACIÓN
+// ======================
+mostrarProductos();
+aplicarConfiguracion();
 verificarSesion();
-
-
-
-
