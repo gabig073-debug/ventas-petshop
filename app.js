@@ -427,6 +427,56 @@ function agregarAlCarrito(){
     actualizarCarrito();
 }
 
+function actualizarCarrito(){
 
+    const lista = document.getElementById("carritoLista");
+    lista.innerHTML = "";
 
+    let total = 0;
 
+    carrito.forEach((item, index) => {
+        total += item.subtotal;
+
+        lista.innerHTML += `
+            <div class="carritoItem">
+                ${item.producto} - ${item.cantidad} x $${item.precio}
+                <b> = $${item.subtotal}</b>
+                <button onclick="eliminarDelCarrito(${index})">❌</button>
+            </div>
+        `;
+    });
+
+    document.getElementById("totalCarrito").innerText = total;
+}
+
+function eliminarDelCarrito(index){
+    carrito.splice(index,1);
+    actualizarCarrito();
+}
+
+function finalizarVenta(){
+
+    if(carrito.length === 0){
+        alert("No hay productos en la venta");
+        return;
+    }
+
+    let totalFinal = carrito.reduce((acc,item)=> acc + item.subtotal, 0);
+
+    const nuevaVenta = {
+        id: Date.now(),
+        fecha: new Date().toISOString(),
+        items: carrito,
+        total: totalFinal
+    };
+
+    ventas.push(nuevaVenta);
+    localStorage.setItem("ventas", JSON.stringify(ventas));
+
+    carrito = [];
+    actualizarCarrito();
+    actualizarDashboard();
+    mostrarVentas();
+
+    alert("Venta registrada correctamente");
+}
