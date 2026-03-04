@@ -342,5 +342,52 @@ function actualizarDashboard(){
     document.getElementById("productoTop").innerText = productoTop;
 }
 
+// Usuario por defecto (solo la primera vez)
+if(!localStorage.getItem("usuarioSistema")){
+    localStorage.setItem("usuarioSistema", JSON.stringify({
+        usuario: "admin",
+        password: "1234"
+    }));
+}
 
+let usuarioGuardado = JSON.parse(localStorage.getItem("usuarioSistema"));
+let sesionActiva = localStorage.getItem("sesionActiva");
 
+function iniciarSesion(){
+
+    const usuario = document.getElementById("usuarioLogin").value;
+    const password = document.getElementById("passwordLogin").value;
+
+    if(usuario === usuarioGuardado.usuario &&
+       password === usuarioGuardado.password){
+
+        localStorage.setItem("sesionActiva", "true");
+
+        document.getElementById("pantallaLogin").style.display = "none";
+        document.getElementById("sistema").style.display = "block";
+
+        mostrarPantalla("dashboard");
+
+    } else {
+        alert("Usuario o contraseña incorrectos");
+    }
+}
+
+function verificarSesion(){
+
+    if(sesionActiva === "true"){
+        document.getElementById("pantallaLogin").style.display = "none";
+        document.getElementById("sistema").style.display = "block";
+        mostrarPantalla("dashboard");
+    } else {
+        document.getElementById("pantallaLogin").style.display = "block";
+    }
+}
+
+function cerrarSesion(){
+
+    localStorage.removeItem("sesionActiva");
+    location.reload();
+}
+
+verificarSesion();
