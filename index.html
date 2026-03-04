@@ -120,8 +120,19 @@
 
         <input id="cantidadVenta" type="number" placeholder="Cantidad">
 
-        <button onclick="registrarVenta()">
-            <i class="fa-solid fa-circle-plus"></i> Registrar Venta
+        <button onclick="agregarAlCarrito()">
+            <i class="fa-solid fa-plus"></i> Agregar al carrito
+        </button>
+
+        <hr>
+
+        <h3>🛒 Productos en la venta</h3>
+        <div id="carritoLista"></div>
+
+        <h3>Total: $<span id="totalCarrito">0</span></h3>
+
+        <button onclick="finalizarVenta()">
+            <i class="fa-solid fa-check"></i> Finalizar Venta
         </button>
 
         <h2>Ventas Realizadas</h2>
@@ -164,7 +175,3 @@
 
 </body>
 </html>
-
-
-
-
