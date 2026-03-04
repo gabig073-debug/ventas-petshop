@@ -58,6 +58,19 @@ function mostrarPantalla(nombre){
         pantalla.style.display = "block";
     }
 
+    // 🔥 NUEVO: botón activo
+    document.querySelectorAll(".sidebar button").forEach(b => {
+        b.classList.remove("activo");
+    });
+
+    const botonActivo = document.querySelector(
+        `.sidebar button[onclick="mostrarPantalla('${nombre}')"]`
+    );
+
+    if(botonActivo){
+        botonActivo.classList.add("activo");
+    }
+
     if(nombre === "dashboard"){
         actualizarDashboard();
     }
@@ -367,4 +380,5 @@ function cerrarSesion(){
 }
 
 verificarSesion();
+
 
