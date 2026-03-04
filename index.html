@@ -4,18 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ventas PetShop</title>
+<title>Sistema Comercial</title>
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="icon" type="image/png" href="icono-192.png">
-    
+
 </head>
 
 <body>
 
-<h1 id="tituloSistema">🏪 Sistema Comercial v2.0</h1>
-
+<!-- LOGIN -->
 <div id="pantallaLogin">
 
 <h2><i class="fa-solid fa-user-lock"></i> Iniciar Sesión</h2>
@@ -27,154 +26,123 @@
 
 </div>
 
+<!-- SISTEMA -->
 <div id="sistema" style="display:none;">
 
     <!-- SIDEBAR -->
     <div class="sidebar">
         <h2 id="tituloSistema">🏪 Sistema Comercial</h2>
 
-        <button onclick="mostrarPantalla('dashboard')">Dashboard</button>
-        <button onclick="mostrarPantalla('productos')">Productos</button>
-        <button onclick="mostrarPantalla('ventas')">Ventas</button>
-        <button onclick="mostrarPantalla('reportes')">Reportes</button>
-        <button onclick="mostrarPantalla('configuracion')">Configuración</button>
+        <button onclick="mostrarPantalla('dashboard')">
+            <i class="fa-solid fa-chart-pie"></i> Dashboard
+        </button>
+
+        <button onclick="mostrarPantalla('productos')">
+            <i class="fa-solid fa-box"></i> Productos
+        </button>
+
+        <button onclick="mostrarPantalla('ventas')">
+            <i class="fa-solid fa-cash-register"></i> Ventas
+        </button>
+
+        <button onclick="mostrarPantalla('reportes')">
+            <i class="fa-solid fa-chart-line"></i> Reportes
+        </button>
+
+        <button onclick="mostrarPantalla('configuracion')">
+            <i class="fa-solid fa-gear"></i> Configuración
+        </button>
 
         <hr>
 
-        <button onclick="cerrarSesion()">Cerrar sesión</button>
+        <button onclick="cerrarSesion()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </button>
     </div>
 
     <!-- CONTENIDO -->
     <div class="contenido">
 
-        <!-- ACÁ VAN TODAS TUS PANTALLAS -->
+        <!-- DASHBOARD -->
+        <div id="pantallaDashboard" class="pantalla">
+            <h2>Panel General</h2>
 
-    
-<div class="container" id="sistema" style="display:none;">
-    
-<div class="menu">
+            <div class="card">
+                <h3>Ventas de Hoy</h3>
+                <p id="ventasHoy">$0</p>
+            </div>
 
-    <button onclick="mostrarPantalla('dashboard')">
-        <i class="fa-solid fa-chart-pie"></i> Dashboard
-    </button>
+            <div class="card">
+                <h3>Ventas del Mes</h3>
+                <p id="ventasMes">$0</p>
+            </div>
 
-    <button onclick="mostrarPantalla('productos')">
-        <i class="fa-solid fa-box"></i> Productos
-    </button>
+            <div class="card">
+                <h3>Cantidad de Ventas</h3>
+                <p id="cantidadVentas">0</p>
+            </div>
 
-    <button onclick="mostrarPantalla('ventas')">
-        <i class="fa-solid fa-cash-register"></i> Ventas
-    </button>
+            <div class="card">
+                <h3>Producto Más Vendido</h3>
+                <p id="productoTop">-</p>
+            </div>
+        </div>
 
-    <button onclick="mostrarPantalla('reportes')">
-        <i class="fa-solid fa-chart-line"></i> Reportes
-    </button>
+        <!-- PRODUCTOS -->
+        <div id="pantallaProductos" class="pantalla">
+            <h2>Agregar Producto</h2>
 
-    <button onclick="mostrarPantalla('configuracion')">
-        <i class="fa-solid fa-gear"></i> Configuración
-    </button>
+            <input id="nombre" placeholder="Nombre producto">
+            <input id="marca" placeholder="Marca">
+            <input id="precio" type="number" placeholder="Precio">
+            <input id="unidad" placeholder="Unidad (Ej: Unidad, Kg, Litro)">
+            <input id="stock" type="number" placeholder="Stock inicial">
 
-</div>
+            <button onclick="guardarProducto()">Guardar Producto</button>
 
-<div id="pantallaDashboard" class="pantalla">
+            <h2>Productos</h2>
+            <div id="listaProductos"></div>
+        </div>
 
-<h2><i class="fa-solid fa-chart-pie"></i> Panel General</h2>
+        <!-- VENTAS -->
+        <div id="pantallaVentas" class="pantalla">
+            <h2>Nueva Venta</h2>
 
-<div class="card">
-    <h3>Ventas de Hoy</h3>
-    <p id="ventasHoy">$0</p>
-</div>
+            <input id="buscarProducto" placeholder="Escribir producto...">
+            <div id="sugerencias" class="sugerencias"></div>
 
-<div class="card">
-    <h3>Ventas del Mes</h3>
-    <p id="ventasMes">$0</p>
-</div>
+            <input id="cantidadVenta" type="number" placeholder="Cantidad">
 
-<div class="card">
-    <h3>Cantidad de Ventas</h3>
-    <p id="cantidadVentas">0</p>
-</div>
+            <button onclick="registrarVenta()">Registrar Venta</button>
 
-<div class="card">
-    <h3>Producto Más Vendido</h3>
-    <p id="productoTop">-</p>
-</div>
+            <h2>Ventas Realizadas</h2>
+            <div id="listaVentas"></div>
+        </div>
 
-</div>
-    
-<div id="pantallaProductos" class="pantalla">
+        <!-- REPORTES -->
+        <div id="pantallaReportes" class="pantalla">
+            <h2>Reportes</h2>
+            <button onclick="exportarVentas()">Exportar Ventas a Excel</button>
+        </div>
 
-<h2><i class="fa-solid fa-plus-circle"></i> Agregar Producto</h2>
+        <!-- CONFIGURACION -->
+        <div id="pantallaConfiguracion" class="pantalla">
+            <h2>Configuración del Negocio</h2>
 
-<input id="nombre" placeholder="Nombre producto">
-<input id="marca" placeholder="Marca">
-<input id="precio" type="number" placeholder="Precio">
-<input id="unidad" placeholder="Unidad (Ej: Unidad, Kg, Litro)">
-<input id="stock" type="number" placeholder="Stock inicial">
+            <input id="nombreNegocio" placeholder="Nombre del Negocio">
+            <input id="duenoNegocio" placeholder="Nombre del Dueño">
+            <input id="telefonoNegocio" placeholder="Teléfono">
+            <input id="direccionNegocio" placeholder="Dirección">
+            <input id="rubroNegocio" placeholder="Rubro">
 
-<button onclick="guardarProducto()">Guardar Producto</button>
+            <button onclick="guardarConfiguracion()">Guardar Configuración</button>
+        </div>
 
-<h2>Productos</h2>
-<div id="listaProductos"></div>
-
-</div>
-    
-<div id="pantallaVentas" class="pantalla">
-
-<h2><i class="fa-solid fa-cart-shopping"></i> Nueva Venta</h2>
-
-<input id="buscarProducto" placeholder="Escribir producto...">
-<div id="sugerencias" class="sugerencias"></div>
-
-<input id="cantidadVenta" type="number" placeholder="Cantidad">
-
-<button onclick="registrarVenta()">Registrar Venta</button>
-    
-<h2>Ventas Realizadas</h2>
-<div id="listaVentas"></div>
+    </div>
 
 </div>
 
-<div id="pantallaReportes" class="pantalla">
-
-<h2><i class="fa-solid fa-file-excel"></i> Reportes</h2>
-
-<button onclick="exportarVentas()">Exportar Ventas a Excel</button>
-
-</div>
-
-<div id="pantallaConfiguracion" class="pantalla">
-    
-<h2><i class="fa-solid fa-gear"></i> Configuración del Negocio</h2>
-
-<input id="nombreNegocio" placeholder="Nombre del Negocio">
-<input id="duenoNegocio" placeholder="Nombre del Dueño">
-<input id="telefonoNegocio" placeholder="Teléfono">
-<input id="direccionNegocio" placeholder="Dirección">
-<input id="rubroNegocio" placeholder="Rubro">
-
-<button onclick="guardarConfiguracion()">Guardar Configuración</button>
-
-<button onclick="cerrarSesion()">
-    <i class="fa-solid fa-right-from-bracket"></i> Salir
-</button>
-</div>
-
-</div>
-    
 <script src="app.js"></script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
