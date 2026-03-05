@@ -107,16 +107,33 @@ function registrarVenta() {
 }
 
 function mostrarVentas(){
+
     const lista = document.getElementById("listaVentas");
     lista.innerHTML = "";
 
     ventas.forEach(v => {
+
+        let productosHTML = "";
+
+        v.items.forEach(item => {
+            productosHTML += `
+                <div class="ventaItem">
+                    ${item.producto} 
+                    <span class="cantidad">${item.cantidad}</span> x $${item.precio}
+                    <span class="subtotal">= $${item.subtotal}</span>
+                </div>
+            `;
+        });
+
         lista.innerHTML += `
             <div class="ventaCard">
-                <b>${v.fecha}</b><br>
-                Producto: ${v.producto}<br>
-                <span class="cantidad">Cantidad: ${v.cantidad} ${v.unidad}</span><br>
-                <span class="total">Total: $${v.total}</span><br>
+                <b>${new Date(v.fecha).toLocaleString()}</b>
+                <hr>
+                ${productosHTML}
+                <hr>
+                <div class="ventaTotal">
+                    TOTAL: $${v.total}
+                </div>
                 <button onclick="eliminarVenta(${v.id})">
                     <i class="fa-solid fa-trash"></i> Eliminar
                 </button>
@@ -480,3 +497,4 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
