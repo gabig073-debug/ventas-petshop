@@ -305,8 +305,8 @@ function actualizarDashboard(){
 
     // ACTUALIZAR CARDS DEL DASHBOARD
 
-    document.getElementById("totalHoy").textContent = "$" + totalHoy.toFixed(2);
-    document.getElementById("totalMes").textContent = "$" + totalMes.toFixed(2);
+    document.getElementById("ventasHoy").textContent = "$" + totalHoy;
+    document.getElementById("ventasMes").textContent = "$" + totalMes;
     document.getElementById("cantidadVentas").textContent = contadorVentas;
     document.getElementById("productoTop").textContent = productoTop;
 
@@ -535,6 +535,7 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
 
