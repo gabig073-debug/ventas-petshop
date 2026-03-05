@@ -601,6 +601,8 @@ function finalizarVenta(){
     ventas.push(nuevaVenta);
     localStorage.setItem("ventas", JSON.stringify(ventas));
 
+    generarTicket(nuevaVenta)
+
     carrito = [];
     actualizarCarrito();
     actualizarDashboard();
@@ -609,6 +611,80 @@ function finalizarVenta(){
     alert("Venta registrada correctamente");
 }
 
+function generarTicket(venta){
+
+    let ticketHTML = `
+    <html>
+    <head>
+        <title>Ticket de Venta</title>
+        <style>
+            body{
+                font-family: Arial;
+                text-align:center;
+            }
+
+            .ticket{
+                width:300px;
+                margin:auto;
+            }
+
+            table{
+                width:100%;
+                border-collapse: collapse;
+            }
+
+            th, td{
+                border-bottom:1px dashed #000;
+                padding:5px;
+                font-size:14px;
+            }
+
+            h2{
+                margin-bottom:5px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="ticket">
+
+            <h2>Mi Negocio</h2>
+            <p>${new Date().toLocaleString()}</p>
+
+            <table>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cant</th>
+                    <th>Total</th>
+                </tr>
+
+                ${venta.productos.map(p => `
+                <tr>
+                    <td>${p.nombre}</td>
+                    <td>${p.cantidad}</td>
+                    <td>$${p.precio * p.cantidad}</td>
+                </tr>
+                `).join("")}
+
+            </table>
+
+            <h3>Total: $${venta.total}</h3>
+
+            <p>¡Gracias por su compra!</p>
+
+        </div>
+
+    </body>
+    </html>
+    `
+
+    let ventana = window.open("", "TICKET", "width=400,height=600")
+    ventana.document.write(ticketHTML)
+    ventana.document.close()
+
+}
 
 
 
