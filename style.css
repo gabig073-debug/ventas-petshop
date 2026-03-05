@@ -386,3 +386,26 @@ hr{
     background:#059669; /* verde más intenso */
     transform: translateY(-2px);
 }
+
+.ventaItem{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:6px;
+}
+
+.ventaItem .cantidad{
+    color:#10b981;
+    font-weight:600;
+}
+
+.ventaItem .subtotal{
+    color:#3b82f6;
+    font-weight:600;
+}
+
+.ventaTotal{
+    font-size:18px;
+    font-weight:700;
+    color:#111827;
+    text-align:right;
+}
