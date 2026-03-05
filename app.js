@@ -300,7 +300,73 @@ function actualizarDashboard(){
     document.getElementById("ventasMes").textContent = "$" + totalMes;
     document.getElementById("cantidadVentas").textContent = contadorVentas;
     document.getElementById("productoTop").textContent = productoTop;
+// ===== GRAFICO PRODUCTOS MAS VENDIDOS =====
 
+let conteoProductos = {};
+
+ventas.forEach(v => {
+
+    v.items.forEach(item => {
+
+        if(!conteoProductos[item.productoId])
+            conteoProductos[item.productoId] = 0;
+
+        conteoProductos[item.productoId] += item.cantidad;
+
+    });
+
+});
+
+// convertir a array
+let listaProductos = Object.keys(conteoProductos).map(id => {
+
+    const prod = productos.find(p => p.id == id);
+
+    return {
+        nombre: prod ? prod.nombre : "Producto",
+        cantidad: conteoProductos[id]
+    };
+
+});
+
+// ordenar de mayor a menor
+listaProductos.sort((a,b) => b.cantidad - a.cantidad);
+
+// tomar los 5 primeros
+listaProductos = listaProductos.slice(0,5);
+
+const nombres = listaProductos.map(p => p.nombre);
+const cantidades = listaProductos.map(p => p.cantidad);
+
+const ctxProductos = document.getElementById("graficoProductosTop");
+
+if(ctxProductos){
+
+    if(window.chartProductos) window.chartProductos.destroy();
+
+    window.chartProductos = new Chart(ctxProductos, {
+
+        type: "bar",
+
+        data: {
+            labels: nombres,
+            datasets: [{
+                label: "Productos más vendidos",
+                data: cantidades
+            }]
+        },
+
+        options:{
+            responsive:true,
+            scales:{
+                y:{ beginAtZero:true }
+            }
+        }
+
+    });
+
+}
+    
 }
 // ===== GRAFICO VENTAS DEL MES =====
 
@@ -534,6 +600,7 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
 
