@@ -265,23 +265,18 @@ function actualizarDashboard(){
         const fechaVenta = new Date(v.fecha);
         const fechaTexto = fechaVenta.toLocaleDateString();
 
-        if (fechaTexto === hoy){
+        if (fechaTexto === hoy)
             totalHoy += v.total;
-        }
 
-        if (fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual){
+        if (fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual)
             totalMes += v.total;
-        }
 
-        // recorrer items de la venta
         v.items.forEach(item => {
 
-            if(!productosVendidos[item.productoId]){
+            if(!productosVendidos[item.productoId])
                 productosVendidos[item.productoId] = 0;
-            }
 
             productosVendidos[item.productoId] += item.cantidad;
-
         });
 
     });
@@ -295,26 +290,17 @@ function actualizarDashboard(){
         if (productosVendidos[id] > maxCantidad) {
 
             maxCantidad = productosVendidos[id];
-
             const prod = productos.find(p => p.id == id);
-
             productoTop = prod ? prod.nombre : "-";
         }
 
     }
-
-    // ACTUALIZAR CARDS DEL DASHBOARD
 
     document.getElementById("ventasHoy").textContent = "$" + totalHoy;
     document.getElementById("ventasMes").textContent = "$" + totalMes;
     document.getElementById("cantidadVentas").textContent = contadorVentas;
     document.getElementById("productoTop").textContent = productoTop;
 
-    // Mostrar en dashboard
-    document.getElementById("ventasHoy").innerText = "$" + totalHoy.toFixed(2);
-    document.getElementById("ventasMes").innerText = "$" + totalMes.toFixed(2);
-    document.getElementById("cantidadVentas").innerText = contadorVentas;
-    document.getElementById("productoTop").innerText = productoTop;
 }
     // ===== GRAFICO VENTAS DEL MES =====
     const diasDelMes = Array.from({length: 31}, (_, i) => (i+1).toString());
@@ -535,6 +521,7 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
 
