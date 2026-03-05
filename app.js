@@ -310,14 +310,12 @@ function actualizarDashboard(){
     document.getElementById("cantidadVentas").textContent = contadorVentas;
     document.getElementById("productoTop").textContent = productoTop;
 
-}
-
     // Mostrar en dashboard
     document.getElementById("ventasHoy").innerText = "$" + totalHoy.toFixed(2);
     document.getElementById("ventasMes").innerText = "$" + totalMes.toFixed(2);
     document.getElementById("cantidadVentas").innerText = contadorVentas;
     document.getElementById("productoTop").innerText = productoTop;
-
+}
     // ===== GRAFICO VENTAS DEL MES =====
     const diasDelMes = Array.from({length: 31}, (_, i) => (i+1).toString());
     let ventasPorDia = Array(31).fill(0);
@@ -537,6 +535,7 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
 
