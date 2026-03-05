@@ -392,9 +392,9 @@ if(ctxProductos){
                 }
             }
         }
-    }
-
 }
+
+
 // ===== GRAFICO VENTAS DEL MES =====
 
 const mesActualGrafico = new Date().getMonth();
@@ -633,4 +633,5 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
