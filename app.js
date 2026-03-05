@@ -392,7 +392,7 @@ if(ctxProductos){
                 }
             }
         }
-}
+    }
 
 
 // ===== GRAFICO VENTAS DEL MES =====
@@ -633,5 +633,6 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
