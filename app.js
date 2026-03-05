@@ -249,6 +249,7 @@ function mostrarPantalla(nombre) {
 // ======================
 // DASHBOARD
 // ======================
+
 function actualizarDashboard(){
 
     const hoy = new Date().toLocaleDateString();
@@ -271,13 +272,16 @@ function actualizarDashboard(){
         if (fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual)
             totalMes += v.total;
 
-        v.items.forEach(item => {
+        if(v.items){
+            v.items.forEach(item => {
 
-            if(!productosVendidos[item.productoId])
-                productosVendidos[item.productoId] = 0;
+                if(!productosVendidos[item.productoId])
+                    productosVendidos[item.productoId] = 0;
 
-            productosVendidos[item.productoId] += item.cantidad;
-        });
+                productosVendidos[item.productoId] += item.cantidad;
+
+            });
+        }
 
     });
 
@@ -292,6 +296,7 @@ function actualizarDashboard(){
             maxCantidad = productosVendidos[id];
             const prod = productos.find(p => p.id == id);
             productoTop = prod ? prod.nombre : "-";
+
         }
 
     }
@@ -300,172 +305,142 @@ function actualizarDashboard(){
     document.getElementById("ventasMes").textContent = "$" + totalMes;
     document.getElementById("cantidadVentas").textContent = contadorVentas;
     document.getElementById("productoTop").textContent = productoTop;
-// ===== GRAFICO PRODUCTOS MAS VENDIDOS =====
 
-let conteoProductos = {};
+    // ======================
+    // GRAFICO VENTAS DEL MES
+    // ======================
 
-ventas.forEach(v => {
+    const diasDelMes = Array.from({length: 31}, (_, i) => (i+1).toString());
+    let ventasPorDia = Array(31).fill(0);
 
-    v.items.forEach(item => {
+    ventas.forEach(v => {
 
-        if(!conteoProductos[item.productoId])
-            conteoProductos[item.productoId] = 0;
+        const fecha = new Date(v.fecha);
 
-        conteoProductos[item.productoId] += item.cantidad;
+        if(fecha.getMonth() === mesActual && fecha.getFullYear() === anioActual){
+            ventasPorDia[fecha.getDate()-1] += v.total;
+        }
 
     });
 
-});
+    const ctxVentas = document.getElementById("graficoVentasMes");
 
-// convertir a array
-let listaProductos = Object.keys(conteoProductos).map(id => {
+    if(ctxVentas){
 
-    const prod = productos.find(p => p.id == id);
+        if(window.chartVentas) window.chartVentas.destroy();
 
-    return {
-        nombre: prod ? prod.nombre : "Producto",
-        cantidad: conteoProductos[id]
-    };
+        window.chartVentas = new Chart(ctxVentas, {
 
-});
+            type: "bar",
 
-// ordenar de mayor a menor
-listaProductos.sort((a,b) => b.cantidad - a.cantidad);
+            data:{
+                labels: diasDelMes,
+                datasets:[{
+                    label:"Ventas del mes",
+                    data: ventasPorDia,
+                    backgroundColor:"#3b82f6"
+                }]
+            },
 
-// tomar los 5 primeros
-listaProductos = listaProductos.slice(0,5);
-
-const nombres = listaProductos.map(p => p.nombre);
-const cantidades = listaProductos.map(p => p.cantidad);
-
-const ctxProductos = document.getElementById("graficoProductosTop");
-
-if(ctxProductos){
-
-    if(window.chartProductos) window.chartProductos.destroy();
-
-    window.chartProductos = new Chart(ctxProductos, {
-
-        type: "bar",
-
-        data: {
-            labels: nombres,
-            datasets: [{
-                label: "Productos más vendidos",
-                data: cantidades
-            }]
-        },
-
-        options:{
-
-    responsive:true,
-
-    plugins:{
-        legend:{
-            labels:{
-                color:"#111",
-                font:{
-                    size:14,
-                    weight:"bold"
+            options:{
+                responsive:true,
+                plugins:{
+                    legend:{
+                        labels:{
+                            color:"#111",
+                            font:{ size:14, weight:"bold" }
+                        }
+                    }
+                },
+                scales:{
+                    x:{
+                        ticks:{
+                            color:"#111",
+                            font:{ size:12, weight:"bold" }
+                        }
+                    },
+                    y:{
+                        beginAtZero:true,
+                        ticks:{
+                            color:"#111",
+                            font:{ size:12, weight:"bold" }
+                        }
+                    }
                 }
             }
-        }
-    },
 
-    scales:{
-        x:{
-            ticks:{
-                color:"#111",
-                font:{
-                    size:12,
-                    weight:"bold"
-                }
-            }
-        },
-        y:{
-            beginAtZero:true,
-            ticks:{
-                color:"#111",
-                font:{
-                    size:12,
-                    weight:"bold"
-                }
-            }
-        }
+        });
+
     }
 
+    // ======================
+    // GRAFICO PRODUCTOS TOP
+    // ======================
 
-// ===== GRAFICO VENTAS DEL MES =====
+    let listaProductos = Object.keys(productosVendidos).map(id => {
 
-const mesActualGrafico = new Date().getMonth();
-const anioActualGrafico = new Date().getFullYear();
+        const prod = productos.find(p => p.id == id);
 
-const diasDelMes = Array.from({length: 31}, (_, i) => (i+1).toString());
-let ventasPorDia = Array(31).fill(0);
+        return {
+            nombre: prod ? prod.nombre : "Producto",
+            cantidad: productosVendidos[id]
+        };
 
-ventas.forEach(v => {
+    });
 
-    const fecha = new Date(v.fecha);
+    listaProductos.sort((a,b)=> b.cantidad - a.cantidad);
+    listaProductos = listaProductos.slice(0,5);
 
-    if(fecha.getMonth() === mesActualGrafico && fecha.getFullYear() === anioActualGrafico){
-        ventasPorDia[fecha.getDate()-1] += v.total;
-    }
+    const nombres = listaProductos.map(p=>p.nombre);
+    const cantidades = listaProductos.map(p=>p.cantidad);
 
-});
+    const ctxProductos = document.getElementById("graficoProductosTop");
 
-const ctxVentas = document.getElementById('graficoVentasMes').getContext('2d');
+    if(ctxProductos){
 
-if(window.chartVentas) window.chartVentas.destroy();
+        if(window.chartProductos) window.chartProductos.destroy();
 
-window.chartVentas = new Chart(ctxVentas, {
-    type: 'bar',
-    data: {
-        labels: diasDelMes,
-        datasets: [{
-            label: 'Ventas del Mes ($)',
-            data: ventasPorDia,
-            backgroundColor: '#3b82f6'
-        }]
-    },
-    options: {
+        window.chartProductos = new Chart(ctxProductos,{
 
-    responsive:true,
+            type:"bar",
 
-    plugins:{
-        legend:{
-            display:true,
-            labels:{
-                color:"#111",
-                font:{
-                    size:14,
-                    weight:"bold"
+            data:{
+                labels:nombres,
+                datasets:[{
+                    label:"Productos más vendidos",
+                    data:cantidades,
+                    backgroundColor:"#10b981"
+                }]
+            },
+
+            options:{
+                responsive:true,
+                plugins:{
+                    legend:{
+                        labels:{
+                            color:"#111",
+                            font:{ size:14, weight:"bold" }
+                        }
+                    }
+                },
+                scales:{
+                    x:{
+                        ticks:{
+                            color:"#111",
+                            font:{ size:12, weight:"bold" }
+                        }
+                    },
+                    y:{
+                        beginAtZero:true,
+                        ticks:{
+                            color:"#111",
+                            font:{ size:12, weight:"bold" }
+                        }
+                    }
                 }
             }
-        }
-    },
 
-    scales:{
-
-        x:{
-            ticks:{
-                color:"#111",
-                font:{
-                    size:12,
-                    weight:"bold"
-                }
-            }
-        },
-
-        y:{
-            beginAtZero:true,
-            ticks:{
-                color:"#111",
-                font:{
-                    size:12,
-                    weight:"bold"
-                }
-            }
-        }
+        });
 
     }
 
@@ -633,6 +608,7 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
 
