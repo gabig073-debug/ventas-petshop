@@ -302,35 +302,48 @@ function actualizarDashboard(){
     document.getElementById("productoTop").textContent = productoTop;
 
 }
-    // ===== GRAFICO VENTAS DEL MES =====
-    const diasDelMes = Array.from({length: 31}, (_, i) => (i+1).toString());
-    let ventasPorDia = Array(31).fill(0);
+// ===== GRAFICO VENTAS DEL MES =====
 
-    ventas.forEach(v => {
-        const fecha = new Date(v.fecha);
-        if(fecha.getMonth() === mesActual && fecha.getFullYear() === anioActual){
-            ventasPorDia[fecha.getDate()-1] += v.total;
-        }
-    });
+const mesActualGrafico = new Date().getMonth();
+const anioActualGrafico = new Date().getFullYear();
 
-    const ctxVentas = document.getElementById('graficoVentasMes').getContext('2d');
-    if(window.chartVentas) window.chartVentas.destroy(); // evita duplicados
-    window.chartVentas = new Chart(ctxVentas, {
-        type: 'bar',
-        data: {
-            labels: diasDelMes,
-            datasets: [{
-                label: 'Ventas del Mes ($)',
-                data: ventasPorDia,
-                backgroundColor: '#3b82f6'
-            }]
+const diasDelMes = Array.from({length: 31}, (_, i) => (i+1).toString());
+let ventasPorDia = Array(31).fill(0);
+
+ventas.forEach(v => {
+
+    const fecha = new Date(v.fecha);
+
+    if(fecha.getMonth() === mesActualGrafico && fecha.getFullYear() === anioActualGrafico){
+        ventasPorDia[fecha.getDate()-1] += v.total;
+    }
+
+});
+
+const ctxVentas = document.getElementById('graficoVentasMes').getContext('2d');
+
+if(window.chartVentas) window.chartVentas.destroy();
+
+window.chartVentas = new Chart(ctxVentas, {
+    type: 'bar',
+    data: {
+        labels: diasDelMes,
+        datasets: [{
+            label: 'Ventas del Mes ($)',
+            data: ventasPorDia,
+            backgroundColor: '#3b82f6'
+        }]
+    },
+    options: {
+        responsive:true,
+        plugins:{
+            legend:{ display:false }
         },
-        options: {
-            responsive:true,
-            plugins:{ legend:{ display:false } },
-            scales:{ y:{ beginAtZero:true } }
+        scales:{
+            y:{ beginAtZero:true }
         }
-    });
+    }
+});
 
 // ===== GRAFICO PRODUCTOS MAS VENDIDOS =====
 let productosVendidos = {};
@@ -521,6 +534,7 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
 
