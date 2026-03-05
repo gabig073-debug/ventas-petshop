@@ -265,20 +265,25 @@ function actualizarDashboard(){
         const fechaVenta = new Date(v.fecha);
         const fechaTexto = fechaVenta.toLocaleDateString();
 
-        if (fechaTexto === hoy)
+        if (fechaTexto === hoy){
             totalHoy += v.total;
+        }
 
-        if (fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual)
+        if (fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual){
             totalMes += v.total;
+        }
 
-        // recorrer todos los items
+        // recorrer items de la venta
         v.items.forEach(item => {
 
-            if(!productosVendidos[item.productoId])
+            if(!productosVendidos[item.productoId]){
                 productosVendidos[item.productoId] = 0;
+            }
 
             productosVendidos[item.productoId] += item.cantidad;
+
         });
+
     });
 
     // producto más vendido
@@ -290,15 +295,21 @@ function actualizarDashboard(){
         if (productosVendidos[id] > maxCantidad) {
 
             maxCantidad = productosVendidos[id];
+
             const prod = productos.find(p => p.id == id);
+
             productoTop = prod ? prod.nombre : "-";
         }
+
     }
 
-    document.getElementById("ventasHoy").innerText = "$" + totalHoy.toFixed(2);
-    document.getElementById("ventasMes").innerText = "$" + totalMes.toFixed(2);
-    document.getElementById("cantidadVentas").innerText = contadorVentas;
-    document.getElementById("productoTop").innerText = productoTop;
+    // ACTUALIZAR CARDS DEL DASHBOARD
+
+    document.getElementById("totalHoy").textContent = "$" + totalHoy.toFixed(2);
+    document.getElementById("totalMes").textContent = "$" + totalMes.toFixed(2);
+    document.getElementById("cantidadVentas").textContent = contadorVentas;
+    document.getElementById("productoTop").textContent = productoTop;
+
 }
 
     // Mostrar en dashboard
@@ -526,6 +537,7 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
 
