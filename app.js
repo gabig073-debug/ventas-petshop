@@ -336,7 +336,7 @@ function actualizarDashboard(){
             scales:{ y:{ beginAtZero:true } }
         }
     });
-}
+
 // ===== GRAFICO PRODUCTOS MAS VENDIDOS =====
 let productosVendidos = {};
 ventas.forEach(v => {
@@ -526,5 +526,6 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
 
