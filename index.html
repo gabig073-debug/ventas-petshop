@@ -67,33 +67,50 @@
 
         <!-- DASHBOARD -->
         <div id="pantallaDashboard" class="pantalla">
-            <h2>Panel General</h2>
+    <h2>Panel General</h2>
 
-            <div class="card">
+    <div class="dashboard-grid">
+
+        <div class="card dashboard-card">
+            <div class="icono">💰</div>
+            <div>
                 <h3>Ventas de Hoy</h3>
                 <p id="ventasHoy">$0</p>
             </div>
+        </div>
 
-            <div class="card">
+        <div class="card dashboard-card">
+            <div class="icono">📅</div>
+            <div>
                 <h3>Ventas del Mes</h3>
                 <p id="ventasMes">$0</p>
             </div>
+        </div>
 
-            <div class="card">
+        <div class="card dashboard-card">
+            <div class="icono">🧾</div>
+            <div>
                 <h3>Cantidad de Ventas</h3>
                 <p id="cantidadVentas">0</p>
             </div>
+        </div>
 
-            <div class="card">
+        <div class="card dashboard-card">
+            <div class="icono">🏆</div>
+            <div>
                 <h3>Producto Más Vendido</h3>
                 <p id="productoTop">-</p>
             </div>
-
-            <div class="charts">
-            <canvas id="graficoVentasMes" width="400" height="200"></canvas>
-            <canvas id="graficoProductosTop" width="400" height="200"></canvas>
-            </div>
         </div>
+
+    </div>
+
+    <div class="charts">
+        <canvas id="graficoVentasMes" width="400" height="200"></canvas>
+        <canvas id="graficoProductosTop" width="400" height="200"></canvas>
+    </div>
+
+</div>
 
         <!-- PRODUCTOS -->
         <div id="pantallaProductos" class="pantalla">
@@ -175,3 +192,4 @@
 
 </body>
 </html>
+
