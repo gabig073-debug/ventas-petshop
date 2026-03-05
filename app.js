@@ -357,16 +357,43 @@ if(ctxProductos){
         },
 
         options:{
-            responsive:true,
-            scales:{
-                y:{ beginAtZero:true }
+
+    responsive:true,
+
+    plugins:{
+        legend:{
+            labels:{
+                color:"#111",
+                font:{
+                    size:14,
+                    weight:"bold"
+                }
             }
         }
+    },
 
-    });
+    scales:{
+        x:{
+            ticks:{
+                color:"#111",
+                font:{
+                    size:12,
+                    weight:"bold"
+                }
+            }
+        },
+        y:{
+            beginAtZero:true,
+            ticks:{
+                color:"#111",
+                font:{
+                    size:12,
+                    weight:"bold"
+                }
+            }
+        }
+    }
 
-}
-    
 }
 // ===== GRAFICO VENTAS DEL MES =====
 
@@ -401,15 +428,48 @@ window.chartVentas = new Chart(ctxVentas, {
         }]
     },
     options: {
-        responsive:true,
-        plugins:{
-            legend:{ display:false }
-        },
-        scales:{
-            y:{ beginAtZero:true }
+
+    responsive:true,
+
+    plugins:{
+        legend:{
+            display:true,
+            labels:{
+                color:"#111",
+                font:{
+                    size:14,
+                    weight:"bold"
+                }
+            }
         }
+    },
+
+    scales:{
+
+        x:{
+            ticks:{
+                color:"#111",
+                font:{
+                    size:12,
+                    weight:"bold"
+                }
+            }
+        },
+
+        y:{
+            beginAtZero:true,
+            ticks:{
+                color:"#111",
+                font:{
+                    size:12,
+                    weight:"bold"
+                }
+            }
+        }
+
     }
-});
+
+}
 
 // ======================
 // CONFIGURACION DEL NEGOCIO
@@ -573,3 +633,4 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
