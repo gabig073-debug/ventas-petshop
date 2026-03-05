@@ -411,33 +411,6 @@ window.chartVentas = new Chart(ctxVentas, {
     }
 });
 
-// ===== GRAFICO PRODUCTOS MAS VENDIDOS =====
-let productosVendidos = {};
-ventas.forEach(v => {
-    if(!productosVendidos[v.producto]) productosVendidos[v.producto]=0;
-    productosVendidos[v.producto] += v.cantidad;
-});
-
-const etiquetas = Object.keys(productosVendidos);
-const cantidades = Object.values(productosVendidos);
-
-const ctxTop = document.getElementById('graficoProductosTop').getContext('2d');
-if(window.chartTop) window.chartTop.destroy(); // evita duplicados
-window.chartTop = new Chart(ctxTop, {
-    type:'pie',
-    data:{
-        labels: etiquetas,
-        datasets:[{
-            data: cantidades,
-            backgroundColor: etiquetas.map((_,i)=>`hsl(${i*60},70%,50%)`)
-        }]
-    },
-    options:{
-        responsive:true,
-        plugins:{ legend:{ position:'bottom' } }
-    }
-});
-
 // ======================
 // CONFIGURACION DEL NEGOCIO
 // ======================
@@ -600,12 +573,3 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
-
-
-
-
-
-
-
-
-
