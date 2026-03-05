@@ -618,6 +618,7 @@ function generarTicket(venta){
     <head>
         <title>Ticket de Venta</title>
         <style>
+
             body{
                 font-family: Arial;
                 text-align:center;
@@ -639,10 +640,6 @@ function generarTicket(venta){
                 font-size:14px;
             }
 
-            h2{
-                margin-bottom:5px;
-            }
-
         </style>
     </head>
 
@@ -660,7 +657,7 @@ function generarTicket(venta){
                     <th>Total</th>
                 </tr>
 
-                ${venta.productos.map(p => `
+                ${venta.items.map(p => `
                 <tr>
                     <td>${p.nombre}</td>
                     <td>${p.cantidad}</td>
@@ -672,7 +669,7 @@ function generarTicket(venta){
 
             <h3>Total: $${venta.total}</h3>
 
-            <p>¡Gracias por su compra!</p>
+            <p>Gracias por su compra</p>
 
         </div>
 
@@ -683,8 +680,4 @@ function generarTicket(venta){
     let ventana = window.open("", "TICKET", "width=400,height=600")
     ventana.document.write(ticketHTML)
     ventana.document.close()
-
 }
-
-
-
