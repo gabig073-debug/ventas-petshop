@@ -204,16 +204,27 @@ function exportarVentas(){
         return;
     }
 
-    let contenido = "Fecha;Producto;Tipo;Cantidad;Total\n";
+    let contenido = "Fecha;Producto;Cantidad;Precio Unitario;Subtotal;Total Venta\n";
 
     ventas.forEach(v => {
-        contenido += `${v.fecha};${v.producto};${v.unidad};${v.cantidad};${v.total}\n`;
+
+        v.items.forEach(item => {
+
+            contenido += 
+                `${new Date(v.fecha).toLocaleString()};` +
+                `${item.producto};` +
+                `${item.cantidad};` +
+                `${item.precio};` +
+                `${item.subtotal};` +
+                `${v.total}\n`;
+        });
+
     });
 
     const blob = new Blob([contenido], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "ventas_petshop.csv";
+    link.download = "ventas_programando.csv";
     link.click();
 }
 
@@ -238,39 +249,57 @@ function mostrarPantalla(nombre) {
 // ======================
 // DASHBOARD
 // ======================
-function actualizarDashboard() {
+function actualizarDashboard(){
+
     const hoy = new Date().toLocaleDateString();
     const mesActual = new Date().getMonth();
     const anioActual = new Date().getFullYear();
 
-    let totalHoy = 0, totalMes = 0, contadorVentas = ventas.length;
+    let totalHoy = 0;
+    let totalMes = 0;
+    let contadorVentas = ventas.length;
     let productosVendidos = {};
 
     ventas.forEach(v => {
+
         const fechaVenta = new Date(v.fecha);
         const fechaTexto = fechaVenta.toLocaleDateString();
 
-        // Sumar ventas de hoy
-        if (fechaTexto === hoy) totalHoy += v.total;
+        if (fechaTexto === hoy)
+            totalHoy += v.total;
 
-        // Sumar ventas del mes
         if (fechaVenta.getMonth() === mesActual && fechaVenta.getFullYear() === anioActual)
             totalMes += v.total;
 
-        // Contar productos vendidos usando ID
-        if (!productosVendidos[v.productoId]) productosVendidos[v.productoId] = 0;
-        productosVendidos[v.productoId] += v.cantidad;
+        // recorrer todos los items
+        v.items.forEach(item => {
+
+            if(!productosVendidos[item.productoId])
+                productosVendidos[item.productoId] = 0;
+
+            productosVendidos[item.productoId] += item.cantidad;
+        });
     });
 
-    // Producto más vendido
-    let productoTop = "-", maxCantidad = 0;
+    // producto más vendido
+    let productoTop = "-";
+    let maxCantidad = 0;
+
     for (let id in productosVendidos) {
+
         if (productosVendidos[id] > maxCantidad) {
+
             maxCantidad = productosVendidos[id];
             const prod = productos.find(p => p.id == id);
-            productoTop = prod ? prod.nombre : "Desconocido";
+            productoTop = prod ? prod.nombre : "-";
         }
     }
+
+    document.getElementById("ventasHoy").innerText = "$" + totalHoy.toFixed(2);
+    document.getElementById("ventasMes").innerText = "$" + totalMes.toFixed(2);
+    document.getElementById("cantidadVentas").innerText = contadorVentas;
+    document.getElementById("productoTop").innerText = productoTop;
+}
 
     // Mostrar en dashboard
     document.getElementById("ventasHoy").innerText = "$" + totalHoy.toFixed(2);
@@ -497,4 +526,5 @@ function finalizarVenta(){
 
     alert("Venta registrada correctamente");
 }
+
 
